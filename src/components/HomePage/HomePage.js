@@ -2,47 +2,19 @@ import React from 'react';
 import './HomePage.scss';
 import Header from "../Header/HeaderUser"
 import Bannner from "../../components/HomePage/Banner"
-import Banner from "../../assets/image/banner.webp"
 const HomePage = () => {
   return (
     <div className="homepage">
-      {/* Header */}
-      {/* <header className="header">
-        <div className="container">
-          <h1>Hệ Thống Đăng Ký Khám Bệnh</h1>
-          <nav>
-            <ul>
-              <li><a href="/">Trang Chủ</a></li>
-              <li><a href="/dat-kham">Đặt Khám</a></li>
-              <li><a href="/bac-si">Bác Sĩ</a></li>
-              <li><a href="/lien-he">Liên Hệ</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header> */}
       <Header></Header>
-
+      <Bannner></Bannner>
       {/* Banner */}
       <section className="banner">
         <div className="container">
-        <Bannner></Bannner>
-          <h2>Chăm Sóc Sức Khỏe Toàn Diện Cho Bạn</h2>
+    
+          <h2 >Chăm Sóc Sức Khỏe Toàn Diện Cho Bạn</h2>
         </div>
       </section>
 
-      {/* Dịch Vụ Y Tế */}
-      <section className="services">
-        <div className="container">
-          <h2>Dịch Vụ Y Tế</h2>
-          <div className="service-list">
-            <div className="service-item">Đặt Khám Tại Cơ Sở</div>
-            <div className="service-item">Đặt Khám Bác Sĩ</div>
-            <div className="service-item">Gói Khám Sức Khỏe</div>
-            <div className="service-item">Điều Dưỡng Tại Nhà</div>
-            <div className="service-item">Xét Nghiệm Tại Nhà</div>
-          </div>
-        </div>
-      </section>
 
       {/* Cơ Sở Y Tế Hàng Đầu */}
       <section className="top-clinics">

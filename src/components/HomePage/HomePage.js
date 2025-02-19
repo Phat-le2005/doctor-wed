@@ -15,7 +15,10 @@ const HomePage = () => {
         <div className="containerr">
           <h2>Cơ Sở Y Tế Hàng Đầu</h2>
           <div className="clinic-list">
-            <div className="clinic-item">Bệnh Viện A</div>
+            <div className="clinic-item">
+            <img src="/assets/logo/BVhuyethoc.png" alt="Logo" />
+
+            </div>
             <div className="clinic-item">Bệnh Viện B</div>
             <div className="clinic-item">Bệnh Viện C</div>
             <div className="clinic-item">Bệnh Viện D</div>

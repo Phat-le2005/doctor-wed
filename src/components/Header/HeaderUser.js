@@ -9,22 +9,22 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 function BasicExample() {
   const [show, setShow] = useState(false);
   return (
-    <header class="header-container">
-         <div class="logo">
+    <header className="header-container">
+         <div className="logo">
            <img src={logo} title='anh nen'></img>
         </div>
         <div className='header-content'>
-    <div class="header-top">
-        <div class="social-list">
+    <div className="header-top">
+        <div className="social-list">
             <a href="#"><FaTiktok/>  <span>Tiktok </span></a>
             <a href="#"><FaFacebookF /> <span>Facebook</span></a>
             <a href="#"><FaInstagram /><span>Instagram</span></a>
             <a href="#"><FaYoutube/> <span>Youtube</span></a>
         </div>
-        <div class="header-action">
-            <button class="app-btn">📱 Tải ứng dụng</button>
-            <button class="account-btn"><FaUser/> Tài khoản</button>
-            <div class="language">
+        <div className="header-action">
+            <button className="app-btn">📱 Tải ứng dụng</button>
+            <button className="account-btn"><FaUser/> Tài khoản</button>
+            <div className="language">
                 <Dropdown>
                 <Dropdown.Toggle variant="none" id="basic-nav-dropdown">
                 <img src={vietName} alt="Vietnamese"/>
@@ -40,12 +40,12 @@ function BasicExample() {
         </div>
     </div>
 
-    <div class="header-bottom">
-        <div class="hotline">
-            <i class="fas fa-headphones"></i> Hỗ trợ đặt khám 
+    <div className="header-bottom">
+        <div className="hotline">
+            <i className="fas fa-headphones"></i> Hỗ trợ đặt khám 
             <strong>1900 2115</strong>
         </div>
-        <nav class="header-list">
+        <nav className="header-list">
             <ul>
                 <li   onMouseEnter={() => setShow(true)} 
                        onMouseLeave={() => setShow(false)}

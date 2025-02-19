@@ -24,7 +24,7 @@ export const createNewUserRedux=(user)=>{
         dispatch(createUserRequest());
         try {
             let {email,password,phoneNumber,firstname,lastname} =user
-            let res = await axios.post("http://localhost:8083/api/post-user",{email,password,phoneNumber,firstname,lastname})
+            let res = await axios.post("http://localhost:8082/api/post-user",{email,password,phoneNumber,firstname,lastname})
             if(res && res.data.errCode ===0){
                 console.log(res)
                 dispatch(createUserSuccess())
@@ -55,7 +55,7 @@ export const doLogin = (user) => {
         dispatch(fertchUserRequest());
         try {
             let { email, password } = user;
-            let res = await axios.post("http://localhost:8083/api/login", { email, password });
+            let res = await axios.post("http://localhost:8082/api/login", { email, password });
             if (res && res.data.errCode === 0) {
                 dispatch(fertchUserSuccess(res.data.user));
                 return {success: true}

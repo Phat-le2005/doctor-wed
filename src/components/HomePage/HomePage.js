@@ -8,17 +8,11 @@ const HomePage = () => {
       <Header></Header>
       <Bannner></Bannner>
       {/* Banner */}
-      <section className="banner">
-        <div className="container">
-    
-          <h2 >Chăm Sóc Sức Khỏe Toàn Diện Cho Bạn</h2>
-        </div>
-      </section>
 
 
       {/* Cơ Sở Y Tế Hàng Đầu */}
       <section className="top-clinics">
-        <div className="container">
+        <div className="containerr">
           <h2>Cơ Sở Y Tế Hàng Đầu</h2>
           <div className="clinic-list">
             <div className="clinic-item">Bệnh Viện A</div>
@@ -31,7 +25,7 @@ const HomePage = () => {
 
       {/* Bác Sĩ Tư Vấn */}
       <section className="doctors">
-        <div className="container">
+        <div className="containerr">
           <h2>Bác Sĩ Tư Vấn</h2>
           <div className="doctor-list">
             <div className="doctor-item">Bác Sĩ 1</div>
@@ -44,7 +38,7 @@ const HomePage = () => {
 
       {/* Chăm Sóc Sức Khỏe Toàn Diện */}
       <section className="healthcare">
-        <div className="container">
+        <div className="containerr">
           <h2>Chăm Sóc Sức Khỏe Toàn Diện</h2>
           <p>Thông tin về các gói chăm sóc sức khỏe...</p>
         </div>
@@ -52,14 +46,14 @@ const HomePage = () => {
 
       {/* Tải Ứng Dụng */}
       <section className="app-download">
-        <div className="container">
+        <div className="containerr">
           <h2>Tải Ứng Dụng Đặt Khám Nhanh</h2>
           <div className="download-buttons">
             <a href="https://apps.apple.com" target="_blank" rel="noopener noreferrer">
-              <img src="/assets/appstore.png" alt="App Store" />
+              <img  alt="App Store" />
             </a>
             <a href="https://play.google.com" target="_blank" rel="noopener noreferrer">
-              <img src="/assets/playstore.png" alt="Google Play" />
+              <img  alt="Google Play" />
             </a>
           </div>
         </div>
@@ -67,7 +61,7 @@ const HomePage = () => {
 
       {/* Truyền Thông Nói Về Chúng Tôi */}
       <section className="media">
-        <div className="container">
+        <div className="containerr">
           <h2>Truyền Thông Nói Về Chúng Tôi</h2>
           <div className="media-list">
             <div className="media-item">Báo Thanh Niên</div>
@@ -80,7 +74,7 @@ const HomePage = () => {
 
       {/* Thống Kê */}
       <section className="statistics">
-        <div className="container">
+        <div className="containerr">
           <h2>Thống Kê</h2>
           <div className="stat-list">
             <div className="stat-item">
@@ -89,7 +83,6 @@ const HomePage = () => {
             </div>
             <div className="stat-item">
               <span>300
-{/* ::contentReference[oaicite:0]{index=0} */}
 </span>
               <p>Bác Sĩ</p>
             </div>
@@ -107,7 +100,7 @@ const HomePage = () => {
 
       {/* Footer */}
       <footer className="footer">
-        <div className="container">
+        <div className="containerr">
           <div className="footer-info">
             <h3>Hệ Thống Đăng Ký Khám Bệnh</h3>
             <p>Cung cấp dịch vụ đặt lịch khám bệnh nhanh chóng và tiện lợi.</p>

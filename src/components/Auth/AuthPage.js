@@ -29,19 +29,55 @@ const AuthPage = () => {
     event.preventDefault();
     if (isRegisterActive) {
       if (!email || !password || !phoneNumber || !firstName || !lastName) {
-        toast.error("❌ Vui lòng nhập đầy đủ thông tin!");
+        toast.error("❌ Vui lòng nhập đầy đủ thông tin!",{ position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,});
         return;
       }
       if (!validateEmail(email)) {
-        toast.error("❌ Email không hợp lệ!");
+        toast.error("❌ Email không hợp lệ!",{
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
         return;
       }
       if (!validatePhone(phoneNumber)) {
-        toast.error("❌ Số điện thoại không hợp lệ!");
+        toast.error("Số điện thoại không hợp lệ", {position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce});
         return;
       }
       dispatch(createNewUserRedux({ email, password, phoneNumber, firstName, lastName }));
-      toast.success("✅ Đăng ký thành công!");
+      toast.success('🦄 Dang Ky Thanh Cong', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
       setIsRegisterActive(false);
       setEmail("")
       setPassword("")
@@ -50,24 +86,65 @@ const AuthPage = () => {
       setPhoneNumber("")
     } else {
       if (!email || !password) {
-        toast.error("❌ Vui lòng nhập email và mật khẩu!");
+        toast.error("❌ Vui lòng nhập email và mật khẩu!",{
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
         return;
       }
       if (!validateEmail(email)) {
-        toast.error("❌ Email không hợp lệ!");
+        toast.error("❌ Email không hợp lệ!",{
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
         return;
       }
       const res = await dispatch(doLogin({ email, password }));
       if (res.success) {
-        toast.success("✅ Đăng nhập thành công!");
+        toast.success('🦄 Dang Nhap Thanh Cong!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+          });
         navigate("/");
       } else {
-        toast.error("❌ Đăng nhập thất bại!");
+        toast.error("❌ Đăng nhập thất bại!",{
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       }
     }
   };
 
   return (
+    <div className="body">
     <div className={`container ${isRegisterActive ? "right-panel-active" : ""}`} id="container">
       {/* Register Form */}
       <div className="form-container register-container">
@@ -105,6 +182,7 @@ const AuthPage = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

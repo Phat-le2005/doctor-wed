@@ -1,15 +1,15 @@
-import Bannner from "../../assets/image/banner.webp"
+import BannerImage from "../../assets/image/banner.webp"
 import "../HomePage/Banner.scss"
 const Banner = ()=>{
     return(
         <div>
             
             <div className="Banner-Image">
-                <img src={Bannner} title="Banner"/>
+              <img src={BannerImage} title="Banner" alt=""/>
             </div>
               {/* Dịch Vụ Y Tế */}
       <section className="services">
-        <div className="container">
+        <div className="containerr">
           
           <div className="service-list">
             <div className="service-item">Đặt Khám Tại Cơ Sở</div>

@@ -95,9 +95,10 @@ button {
   transition: 0.3s ease-in-out;
 }
 
-button:hover {
+button:hover{
   letter-spacing: 3px;
 }
+
 
 button:active {
   transform: scale(0.95);

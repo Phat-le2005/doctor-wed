@@ -3,6 +3,60 @@
 $primary-color:#00b5f1;
 $secondary-color: #ff8c00;
 $text-color: #333;
+.header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease-in-out;
+    z-index: 1000;
+    padding: 15px 0;
+    max-height: 500px;
+    overflow-y: hidden;
+}
+
+.header-top {
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+
+.header-bottom {
+    transition: transform 0.5s ease-in-out, padding 0.4s ease-in-out;
+}
+
+/* Khi header thu nhỏ */
+.header-container.shrink {
+    height: 60px; /* Giảm chiều cao */
+    padding: 5px 0;
+}
+
+/* Header-top biến mất trước */
+.header-container.shrink .header-top {
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+}
+
+/* Khi header-top đã biến mất, header-bottom mới di chuyển lên */
+.header-container.shrink .header-bottom {
+    position: absolute;
+    
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 50px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.6s ease-in-out; /* Giảm tốc độ */
+}
+
+/* Thu nhỏ logo */
+.header-container.shrink .logo img {
+    width: 80px;
+    transition: all 0.4s ease-in-out;
+}
+
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -37,7 +91,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 50px;
+    padding: 3px 50px;
     border-bottom: 1px solid;
     
     .logo img {
@@ -79,6 +133,7 @@ body {
             align-items: center;
             justify-content: center;
             font-weight: 500;
+            letter-spacing: normal;
             transition: all;
             &:hover {
                 background: darken($secondary-color, 10%);
@@ -92,6 +147,7 @@ body {
             margin: 0 5px;
             border-radius: 10px;
             cursor: pointer;
+            letter-spacing: normal;
             font-weight: 500;
             display: flex;
             align-items: center;
@@ -134,7 +190,16 @@ body {
         list-style: none;
         padding: 0;
         margin: 0;
-
+        .special{
+            margin-top: 15px;
+            text-decoration: none;
+            color: $text-color;
+            font-weight: 500;
+            cursor: pointer;
+            &:hover {
+                color:$primary-color;
+            }
+        }
         li {
             margin: 0 15px;
 

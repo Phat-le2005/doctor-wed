@@ -1,24 +1,23 @@
-import BannerImage from "../../assets/image/banner.webp"
+
+import homepage from "../../assets/video/video-homepage.mp4"
 import "../HomePage/Banner.scss"
 const Banner = ()=>{
     return(
         <div>
             
             <div className="Banner-Image">
-              <img src={BannerImage} title="Banner" alt=""/>
+              <video autoPlay muted loop>
+                  <source
+                      src={homepage}
+                      type="video/mp4"
+                  />
+              </video>
             </div>
               {/* Dịch Vụ Y Tế */}
       <section className="services">
         <div className="containerr">
-          
-          <div className="service-list">
-            <div className="service-item">Đặt Khám Tại Cơ Sở</div>
-            <div className="service-item">Đặt Khám Bác Sĩ</div>
-            <div className="service-item">Gói Khám Sức Khỏe</div>
-            <div className="service-item">Điều Dưỡng Tại Nhà</div>
-            <div className="service-item">Xét Nghiệm Tại Nhà</div>
-            <div className="service-item">Xét Nghiệm Tại Nhà</div>
-          </div>
+            <div className='title1'>What seems to be the problem today?</div>
+            <div className='title2'>There’s nothing to worry about. You’re going to be just fine.</div>
         </div>
       </section>
       

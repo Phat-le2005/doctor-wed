@@ -4,12 +4,34 @@ import { FaInstagram,FaUser } from "react-icons/fa6";
 import logo from '../../assets/image/images.png';
 import vietName from'../../assets/image/vietnam.png'
 import Dropdown from 'react-bootstrap/Dropdown';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 function BasicExample() {
   const [show, setShow] = useState(false);
+  const [shrink, setShrink] = useState(false);
+
+  useEffect(() => {
+      let timeout;
+      const handleScroll = () => {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+              if (window.scrollY > 100) {
+                  setShrink(true);
+              } else {
+                  setShrink(false);
+              }
+          }, 10);
+      };
+
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+          window.removeEventListener("scroll", handleScroll);
+          clearTimeout(timeout);
+      };
+  }, []);
+
   return (
-    <header className="header-container">
+    <header className={`header-container ${shrink ? "shrink" : ""}`}>
          <div className="logo">
            <img src={logo} title='anh nen'></img>
         </div>
@@ -75,7 +97,7 @@ function BasicExample() {
                       </NavDropdown.Item>
                     </NavDropdown>
                   </li>
-                <li><a href="#">Khám sức khỏe doanh nghiệp</a></li>
+                <li className='special'>Khám sức khỏe doanh nghiệp</li>
                 <li  onMouseEnter={() => setShow(true)} 
       onMouseLeave={() => setShow(false)}> <NavDropdown title="Tin Tuc Y Te" id="basic-nav-dropdown">
                       <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -100,7 +122,7 @@ function BasicExample() {
                         Separated link
                       </NavDropdown.Item>
                     </NavDropdown></li>
-                <li><a href="#">Liên hệ hợp tác</a></li>
+                <li className='special'><a href="#">Liên hệ hợp tác</a></li>
             </ul>
         </nav>
     </div>

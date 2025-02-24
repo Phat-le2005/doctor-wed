@@ -3,7 +3,7 @@ import App from "./App";
 import Register from "./components/Auth/AuthPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Admin from "../src/views/Admin"
 const NotFound = () => {
   return (
     <div className="container mt-3 alert alert-danger">
@@ -18,6 +18,7 @@ const Layout = () => {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/admin" element={<Admin/>}></Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
 

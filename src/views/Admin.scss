@@ -5,19 +5,34 @@
             height: 100vh !important;
         }
     }
+    // .admin-content {
+    //     width: 100%;
+    //     .admin-main{
+    //         position: relative;
+    //         left: 250px;
+    //         height: calc(100vh - 50px);
+    //         .btn-Paginate{
+    //             display: flex;
+    //             justify-content: center;
+    //             align-items: center;
+    //         }
+    //     }
+        
+    // }
     .admin-content {
-        width: 100%;
-        .admin-header{
-            height: 40px;
-            border: 1px solid green;
+        flex-grow: 1;
+        transition: margin-left 0.3s ease;
+
+        &.sidebar-open {
+            margin-left: 250px;
         }
-        .admin-main{
-            height: calc(100vh - 50px);
-            .btn-Paginate{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
+
+        &.sidebar-close {
+            margin-left: 80px;
+        }
+
+        .admin-main {
+            padding: 30px;
         }
     }
 }

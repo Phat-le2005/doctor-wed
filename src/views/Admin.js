@@ -5,21 +5,21 @@ import { useState } from "react";
 import { Outlet,Link } from "react-router-dom";
 import PerfectScrollbar from 'react-perfect-scrollbar'
 const Admin=(props)=>{
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isDarkMode, setIsDarkMode] = useState(false);
     return (
             <div className="admin-container">
-                <div className="admin-sidebar">
-                    <Sidebar />
-                </div>
-                <div className="admin-content">
-                    
-                   
-                    <div className="admin-main">
+                <div className={`admin-sidebar ${isSidebarOpen ? "open" : "close"}`}>
+                <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+            </div>
+                 {/* Khi Sidebar đóng, phần nội dung Dashboard sẽ mở rộng ra */}
+            <div className={`admin-content ${isSidebarOpen ? "sidebar-open" : "sidebar-close"}`}>
+                <div className="admin-main">
                     <PerfectScrollbar>
-                        <Outlet/>
-                        </PerfectScrollbar>
-                    </div>
-                    
+                    <Outlet context={{ isDarkMode, setIsDarkMode }} />
+                    </PerfectScrollbar>
                 </div>
+            </div>
                
             </div>       
     )

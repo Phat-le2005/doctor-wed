@@ -139,6 +139,11 @@ const AuthPage = () => {
           theme: "light",
           transition: Bounce,
         });
+        setEmail("")
+        setFirstName("")
+        setPassword("")
+        setPhoneNumber("")
+        setLastName("")
       }
     }
   };

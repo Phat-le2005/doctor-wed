@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Admin/SideBar.css"
 import 'boxicons/css/boxicons.min.css';
-const SideBar = () => {
+import { Link } from "react-router-dom";
+const SideBar = ({ isSidebarOpen, setIsSidebarOpen,isDarkMode,setIsDarkMode }) => {
   const navigate = useNavigate();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+
 
   // Xử lý toggle sidebar
   const toggleSidebar = () => {
@@ -16,7 +16,6 @@ const SideBar = () => {
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => !prev);
   };
-
   // Cập nhật class cho body khi dark mode thay đổi
   useEffect(() => {
     if (isDarkMode) {
@@ -50,16 +49,16 @@ const SideBar = () => {
 
             <ul className="menu-links" >
               <li className="nav-link">
-                <a href="#">
-                  <i className="bx bx-home-alt icon"></i>
-                  <span className="text nav-text">Dashboard</span>
-                </a>
+                  <Link to="/Admin/DashBoard">
+                    <i className="bx bx-home-alt icon"></i>
+                    <span className="text nav-text">Dashboard</span>
+                  </Link>
               </li>
               <li className="nav-link">
-                <a href="#">
-                  <i className="bx bx-bar-chart-alt-2 icon"></i>
-                  <span className="text nav-text">Revenue</span>
-                </a>
+                <Link to="/Admin/User">
+                  <i class='bx bx bx-user icon'></i>
+                  <span className="text nav-text">User</span>
+                  </Link>
               </li>
               <li className="nav-link">
                 <a href="#">
@@ -70,7 +69,7 @@ const SideBar = () => {
               <li className="nav-link">
                 <a href="#">
                   <i className="bx bx-pie-chart-alt icon"></i>
-                  <span className="text nav-text">Analytics</span>
+                  <span className="text nav-text">User</span>
                 </a>
               </li>
               <li className="nav-link">
@@ -108,9 +107,6 @@ const SideBar = () => {
         </div>
       </nav>
 
-      <section className="home">
-        <div className="text">Dashboard Sidebar</div>
-      </section>
     </>
   );
 };

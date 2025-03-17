@@ -32,10 +32,10 @@ function ModalDeleteUser(props) {
         </Modal.Header>
         <Modal.Body>Are you sure to delete this User. Email: <b>{DataDelete && DataDelete.email ? DataDelete.email : ""}</b></Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button style={ {letterSpacing: "normal"}}  variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={()=> HandleDelete()}>
+          <Button style={ {letterSpacing: "normal"}}  variant="primary" onClick={()=> HandleDelete()}>
             Confirm
           </Button>
         </Modal.Footer>

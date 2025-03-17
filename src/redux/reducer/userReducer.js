@@ -1,4 +1,4 @@
-import { CREATE_USER_ERROR, CREATE_USER_REQUEST, CREATE_USER_SUCCESS, FERTCH_USER_ERROR, FERTCH_USER_REQUEST, FERTCH_USER_SUCCESS } from "../action/types";
+import { CREATE_USER_ERROR, CREATE_USER_REQUEST, CREATE_USER_SUCCESS, FERTCH_USER_ERROR, FERTCH_USER_REQUEST, FERTCH_USER_SUCCESS, GET_ALL_PAGINATE_ERROR, GET_ALL_PAGINATE_REQUEST, GET_ALL_PAGINATE_SUCCESS } from "../action/types";
 
 const INITIAL_STATE = {
     listUser: [],
@@ -45,7 +45,6 @@ const userLoginReducer = (state = INITIAL_STATE, action) => {
         default: return state;
     }
 };
-
 export default {userReducer,
     userLoginReducer
 };

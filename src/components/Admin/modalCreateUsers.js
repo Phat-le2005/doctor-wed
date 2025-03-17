@@ -94,6 +94,7 @@ const handleSubmitUser = async() =>{
     <select  className="from-select" onChange={(event)=>setrole(event.target.value)}>
       <option defaultValue="USER">USER</option>
       <option value="ADMIN">ADMIN</option>
+      <option value="DOCTOR">DOCTOR</option>
     </select>
   </div>
   <div className="col-md-12">
@@ -113,10 +114,10 @@ const handleSubmitUser = async() =>{
 </from>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button style={ {letterSpacing: "normal"}}  variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={()=>handleSubmitUser()} >
+          <Button style={ {letterSpacing: "normal"}}  variant="primary" onClick={()=>handleSubmitUser()} >
             Save
           </Button>
         </Modal.Footer>

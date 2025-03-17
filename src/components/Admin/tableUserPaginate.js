@@ -26,15 +26,15 @@ const TableUserPaginate = (props) =>{
             <tbody>
                 {ListUser && ListUser.length>0 && ListUser.map((item,index)=>{
                     return(
-                    <tr key={'table-user-${index}'}>
+                    <tr key={`table-user-${index}`}>
                     <td>{item.id}</td>
-                    <td>{item.username}</td>
+                    <td>{item.firstName + item.lastName}</td>
                     <td>{item.email}</td>
                     <td>{item.role}</td>
                     <td>
                         {/* <button onClick={()=>props.HandClickbtnView(item)} className='btn btn-secondary'>View</button> */}
-                        <button onClick={()=>props.HandClickbtnUpdate(item)} className='btn btn-warning mx-3'>Update</button>
-                        <button onClick={()=>props.HandClickbtnDelete(item)} className='btn btn-danger'>Delete</button>
+                        <button style={ {letterSpacing: "normal"}} onClick={()=>props.HandClickbtnUpdate(item)} className='btn btn-warning mx-3'>Update</button>
+                        <button style={ {letterSpacing: "normal"}}  onClick={()=>props.HandClickbtnDelete(item)} className='btn btn-danger'>Delete</button>
                     </td>
                     </tr>
                     )

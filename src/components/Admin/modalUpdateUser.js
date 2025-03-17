@@ -103,6 +103,7 @@ const handleSubmitUser = async() =>{
             <select  className="from-select" onChange={(event)=>setrole(event.target.value)} value={role}>
               <option value="USER">USER</option>
               <option value="ADMIN">ADMIN</option>
+              <option value="DOCTOR">Doctor</option>
             </select>
           </div>
           <div className="col-md-12">

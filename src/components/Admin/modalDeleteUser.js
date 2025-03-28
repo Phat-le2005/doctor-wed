@@ -1,46 +1,70 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-// import { DeleteUser } from '../../../services/ApiService';
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import { deleteUser } from '../../service/userService';
+
 function ModalDeleteUser(props) {
-  const {show, setShow,DataDelete} = props;
+  const { show, setShow, DataDelete, FetchListUserWithPaginate, setcurrentpage,currentpage,ListUser } = props;
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClose = () => setShow(false);
-  const HandleDelete = async() => {
-        // let data=await DeleteUser(DataDelete.id)
-        // if(data && data.EC===0){
-        //   toast.success(data.EM);
-        //   handleClose();
-        //   props.setcurrentpage(1)
-        //   await props.FetchListUserWithPaginate(1);
-        // }
-        // if(data && data.EC!==0){
-        //   toast.error(data.EM);
-        // }
-  }
+
+  const HandleDelete = async () => {
+    if (!DataDelete?.id) {
+      toast.error("Không tìm thấy ID người dùng!");
+      return;
+    }
+  
+    setIsLoading(true);
+  
+    try {
+      const data = await deleteUser(DataDelete.id);
+      console.log("Response từ API xoá:", data); // ✅ Xem rõ phản hồi
+  
+      if (data && data.errCode === 0) {
+        toast.success(data.errMessage);
+  
+        const nextPage = (currentpage > 1 && ListUser.length === 1)
+          ? currentpage - 1
+          : currentpage;
+  
+        setShow(false);
+        setcurrentpage(nextPage);
+        await FetchListUserWithPaginate(nextPage);
+      } else {
+        toast.error(data?.errMessage || "Lỗi không xác định khi xóa!");
+      }
+    } catch (error) {
+      toast.error("Lỗi khi xóa người dùng!");
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-    <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button> */}
-
-      <Modal show={show} onHide={handleClose} backdrop='static'>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm Delete The User</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure to delete this User. Email: <b>{DataDelete && DataDelete.email ? DataDelete.email : ""}</b></Modal.Body>
-        <Modal.Footer>
-          <Button style={ {letterSpacing: "normal"}}  variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button style={ {letterSpacing: "normal"}}  variant="primary" onClick={()=> HandleDelete()}>
-            Confirm
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+    <Modal show={show} onHide={handleClose} backdrop='static'>
+      <Modal.Header closeButton>
+        <Modal.Title>Confirm Delete The User</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        Are you sure to delete this user? Email: <b>{DataDelete?.email || ""}</b>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose} style={{ letterSpacing: 'normal' }}>
+          Cancel
+        </Button>
+        <Button
+          variant="primary"
+          onClick={HandleDelete}
+          disabled={isLoading}
+          style={{ letterSpacing: 'normal' }}
+        >
+          {isLoading ? 'Deleting...' : 'Confirm'}
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 }
 

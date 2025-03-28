@@ -19,7 +19,7 @@ const TableUserPaginate = (props) =>{
                 <th scope="col">ID</th>
                 <th scope="col">Username</th>
                 <th scope="col">Email</th>
-                <th scope="col">Role</th>
+                <th scope="col">PhoneNummber</th>
                 <th>Action</th>
                 </tr>
             </thead>
@@ -30,10 +30,10 @@ const TableUserPaginate = (props) =>{
                     <td>{item.id}</td>
                     <td>{item.firstName + item.lastName}</td>
                     <td>{item.email}</td>
-                    <td>{item.role}</td>
+                    <td>{item.phonenumber}</td>
                     <td>
-                        {/* <button onClick={()=>props.HandClickbtnView(item)} className='btn btn-secondary'>View</button> */}
-                        <button style={ {letterSpacing: "normal"}} onClick={()=>props.HandClickbtnUpdate(item)} className='btn btn-warning mx-3'>Update</button>
+                        <button style={ {letterSpacing: "normal"}} onClick={()=>props.HandClickbtnView(item)} className='btn btn-secondary'>View</button>
+                        {/* <button style={ {letterSpacing: "normal"}} onClick={()=>props.HandClickbtnUpdate(item)} className='btn btn-warning mx-3'>Update</button> */}
                         <button style={ {letterSpacing: "normal"}}  onClick={()=>props.HandClickbtnDelete(item)} className='btn btn-danger'>Delete</button>
                     </td>
                     </tr>
@@ -45,14 +45,14 @@ const TableUserPaginate = (props) =>{
                 </tr>}
             </tbody>
         </table>
-        <div className="btn-Paginate">
+        <div className="btn-Paginate" style={{display:"flex",justifyContent:"center"}}>
         <ReactPaginate
-        nextLabel="next >"
+        nextLabel=">>"
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
         marginPagesDisplayed={2}
         pageCount={pageCount}
-        previousLabel="< previous"
+        previousLabel="<<"
         pageClassName="page-item"
         pageLinkClassName="page-link"
         previousClassName="page-item"

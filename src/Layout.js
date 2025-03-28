@@ -1,11 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import App from "./App";
+
 import Register from "./components/Auth/AuthPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Admin from "../src/views/Admin"
 import DashBoard from "./components/Admin/DashBoard";
 import User from "./components/Admin/User";
+import HomePage from "./components/HomePage/HomePage";
+import ViewApp from "../src/views/viewApp"
 const NotFound = () => {
   return (
     <div className="container mt-3 alert alert-danger">
@@ -18,7 +20,10 @@ const Layout = () => {
   return (
     <>
       <Routes>
-      <Route path="/" element={<App />} />
+      <Route path="/" element={<ViewApp />} >
+        <Route  index element={<HomePage/>} />
+        <Route path="homepage" element={<HomePage></HomePage>} />
+      </Route>
       <Route path="/register" element={<Register />} />
       <Route path="/admin" element={<Admin />}>
         <Route index element={<DashBoard></DashBoard>} /> {/* Định nghĩa index khi vào /admin */}

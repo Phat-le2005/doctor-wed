@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { FcPlus } from "react-icons/fc";
 import { useEffect, useState } from "react";
 import { getAllUserPaginate } from "../../redux/action/userAction";
-import ModalUpdateUsers from "./modalUpdateUser";
+// import ModalViewUsers from "./modalViewUser";
 import ModalDeleteUser from "./modalDeleteUser";
 import TableUserPaginate from "./tableUserPaginate";
 const ManageUsers = (props)=> {
@@ -13,6 +13,7 @@ const ManageUsers = (props)=> {
     const[showModalCreatUser,setshowModalCreatUser] = useState(false);
     const[showModalUpdateUser,setshowModalUpdateUser] = useState(false);
     const[showModalDeleteUser,setshowModalDeleteUser] = useState(false);
+    const[showModalViewUser,setshowModalViewUser] = useState(false);
     const[DataUpdate,setDataUpdate] = useState({})
     const[DataDelete,setDataDelete] = useState({})
     const [ListUser,setListUser] = useState([])
@@ -67,7 +68,7 @@ const ManageUsers = (props)=> {
                 FetchListUserWithPaginate = {FetchListUserWithPaginate}
                 currentpage={currentpage}
                 setcurrentpage={setcurrentpage}/>
-                <ModalUpdateUsers
+                {/* <ModalUpdateUsers
                     show={showModalUpdateUser}
                     setShow={setshowModalUpdateUser}
                     DataUpdate={DataUpdate}
@@ -75,15 +76,23 @@ const ManageUsers = (props)=> {
                     FetchListUserWithPaginate = {FetchListUserWithPaginate}
                     currentpage={currentpage}
                     setcurrentpage={setcurrentpage}
+                /> */}
+               <ModalDeleteUser
+                show={showModalDeleteUser}
+                setShow={setshowModalDeleteUser}
+                DataDelete={DataDelete}
+                FetchListUserWithPaginate={FetchListUserWithPaginate}
+                currentpage={currentpage}
+                setcurrentpage={setcurrentpage}
+                ListUser={ListUser} // 👈 THÊM nếu ModalDeleteUser cần
                 />
-                <ModalDeleteUser
-                    show={showModalDeleteUser}
-                    setShow={setshowModalDeleteUser}
-                    DataDelete = {DataDelete}
-                    FetchListUserWithPaginate = {FetchListUserWithPaginate}
-                    currentpage={currentpage}
-                    setcurrentpage={setcurrentpage}
-                />
+                  {/* <ModalViewUsers 
+                    show={showModalViewUser}
+                    setShow={setshowModalViewUser}
+                    FetchListUserWithPaginate={FetchListUserWithPaginate}
+                    DataUpdate={DataUpdate}
+                    resetUpdateUser={resetUpdateUser}
+                /> */}
             </div>
         </div>
     )

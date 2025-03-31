@@ -1,0 +1,102 @@
+.Card{
+    width: 700px;
+    z-index: 100;
+    height: 170px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: row;
+    align-items: center; // Căn giữa theo chiều dọc
+    .Hinhanh{
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        align-items: center; // Căn giữa theo chiều ngang
+        justify-content: center; // Căn giữa theo chiều dọc
+        img{
+            width: 120px;
+            height: 100px;
+            border: 0.12px solid black;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+        .Chitiet{
+            width: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px;
+            border-radius: 0 0 15px 15px;
+            cursor: pointer;
+            background-color: #ffffff;
+            box-shadow: 0.4px 1px 4px 0px rgba(0, 0, 0, 0.25);
+            font-size: 16px;
+            line-height: auto;
+            letter-spacing: 0;
+            font-weight: 500;
+        }
+    }
+    .infor{
+        width: 75% !important;
+        padding: 10px; // Thêm padding cho dễ nhìn
+        border: none; // Xóa border không cần thiết
+        font-size: 14px;
+        line-height: auto;
+        font-weight: 500;
+        color: #333 !important; // Chỉnh màu đậm hơn
+        .Name{
+            font-size: 24px;
+            color: #35B8FF;
+            font-weight: 500;
+            margin-bottom: 5px; // Tạo khoảng cách với các dòng dưới
+            border: none; // Xóa border không cần thiết
+        }
+        .chuyenKhoa,
+        .chuyenTri,
+        .LichKham,
+        .Gioitinh {
+            display: flex;
+            align-items: center;
+            height: 30px;
+            padding: 5px;
+        }
+
+        .chuyenKhoa span {
+            margin-bottom: 24px;
+            width: 105px !important;
+            white-space: nowrap;  // Giữ chữ trên một dòng
+            
+        }
+        
+        .chuyenTri span, 
+        .LichKham span {
+            margin-bottom: 24px;
+            width: 85px !important;
+            white-space: nowrap;  // Giữ chữ trên một dòng
+            
+        }
+        .Gioitinh span {
+            margin-bottom: 24px;
+            width: 70px !important;
+            white-space: nowrap;  // Giữ chữ trên một dòng
+            
+        }
+    }
+    .buttonnn{
+        width: 172px;
+        height: 40px;
+        background-color: #35B8FF;
+        color: #ffffff;
+        font-size: 16px;
+        border-radius: 15px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        margin-left: 460px;
+        margin-top: 100px;
+        cursor: pointer;
+    }
+}

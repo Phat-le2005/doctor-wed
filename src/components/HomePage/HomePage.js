@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import banner1 from '../../assets/icon/banner1.png';
-import banner2 from '../../assets/icon/banner2.png';
-import banner3 from '../../assets/icon/banner3.png';
-import banner4 from '../../assets/icon/banner4.png';
+import React, { useState, useEffect } from "react";
+import banner1 from "../../assets/icon/banner1.png";
+import banner2 from "../../assets/icon/banner2.png";
+import banner3 from "../../assets/icon/banner3.png";
+import banner4 from "../../assets/icon/banner4.png";
 import "../HomePage/HomePage.scss";
 
 const HomePage = () => {
@@ -11,10 +11,11 @@ const HomePage = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      nextImage();
     }, 10000);
+
     return () => clearInterval(interval);
-  }, []);
+  }, [currentIndex]);
 
   const nextImage = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -25,19 +26,21 @@ const HomePage = () => {
   };
 
   return (
-    <div className='banner'>
+    <div className="banner">
+      <div>
       <div className="slider">
         {images.map((img, index) => (
           <img
             key={index}
             src={img}
             alt={`Slide ${index + 1}`}
-            className={index === currentIndex ? 'active' : 'hidden'}
+            className={index === currentIndex ? "active" : ""}
           />
         ))}
       </div>
       <button className="prev" onClick={prevImage}>&lt;</button>
       <button className="next" onClick={nextImage}>&gt;</button>
+      </div>
     </div>
   );
 };

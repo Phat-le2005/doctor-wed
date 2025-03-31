@@ -1,0 +1,26 @@
+.bodyDepartment{
+    width: 100%;
+    background-color: #DFF2FD;
+    height: 1920px;
+    display: flex;
+    flex-direction: column;
+    img{
+        width: 100%;
+        background-color: #fff;
+        height: 321px;
+    }
+    .iconBanner{
+        position: relative;
+        bottom: 300px;
+        margin-left: 50px;
+        span{
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .TrangChu:hover {
+            color: #35B8FF;
+        }
+    }
+}

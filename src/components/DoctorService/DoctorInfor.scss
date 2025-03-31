@@ -1,0 +1,145 @@
+.body{
+    width: 100%;
+    background-color: #DFF2FD;
+    display: flex;
+    height: 1080px !important;
+    position: relative;
+    flex-direction: column;
+    .Text{
+        position: relative;
+        margin-top: 20px;
+        
+        right: 19%;
+        margin-bottom: 70px;
+        span{
+            font-size: 20px;
+            font-weight: 700;
+            padding: 10px;
+            cursor: pointer;
+            &:hover{
+                color: #35B8FF;
+            }
+        }
+
+    }
+    .Inforrr{
+        width: 1200px;
+        z-index: 100;
+        height: 234px;
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        display: flex;
+        padding: 15px;
+        flex-direction: row;
+        // align-items: center; 
+        .Hinhanh{
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            padding-top: 10px;
+            // justify-content: center; 
+            img{
+                width: 150px;
+                height: 150px;
+                border: 0.12px solid black;
+                border-radius: 15px 15px 0 0;
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            }
+        }
+        .infor{
+            width: 75% !important;
+            padding: 5px; // Thêm padding cho dễ nhìn
+            border: none; // Xóa border không cần thiết
+            font-size: 16px;
+            line-height: auto;
+            font-weight: 600;
+            color: #797878 !important; // Chỉnh màu đậm hơn
+            .Name{
+                font-size: 28px;
+                color: #35B8FF;
+                font-weight: 500;
+                margin-bottom: 5px; // Tạo khoảng cách với các dòng dưới
+                border: none; // Xóa border không cần thiết
+            }
+            .chuyenKhoa,
+            .chuyenTri,
+            .LichKham,
+            .Gioitinh {
+                display: flex;
+                align-items: center;
+                height: 30px;
+                padding: 5px;
+            }
+    
+            .chuyenKhoa span {
+                margin-bottom: 24px;
+                width: 150px !important;
+                white-space: nowrap;  // Giữ chữ trên một dòng
+                color: black;
+                font-size: 20px;
+                
+            }
+            
+            .chuyenTri span, 
+            .LichKham span {
+                margin-bottom: 24px;
+                width: 120px !important;
+                white-space: nowrap;  // Giữ chữ trên một dòng
+                color: black;
+                font-size: 20px;
+                
+            }
+            .Gioitinh span {
+                margin-bottom: 24px;
+                width: 100px !important;
+                white-space: nowrap;  // Giữ chữ trên một dòng
+                color: black;
+                font-size: 20px;
+                
+            }
+        }
+        .button{
+            width: 184px;
+            height: 40px;
+            background-color: #35B8FF;
+            color: #ffffff;
+            font-size: 16px;
+            border-radius: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            margin-left: 980px;
+            margin-top: 130px;
+            cursor: pointer;
+        }
+    }
+    .Content{
+        width: 1220px;
+        display: flex;
+        gap: 50px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        
+        .GioiThieu{
+            padding-left: 20px !important;
+            width: 600px;
+            height: 350px;
+            border-radius: 15px;
+            background-color: #ffffff;
+            padding: 10px;
+
+        }
+        .HocVan{
+            padding-left: 20px !important;
+            width: 600px;
+            height: 350px;
+            border-radius: 15px;
+            background-color: #ffffff;
+            padding: 10px;
+        }
+    }
+}

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import banner1 from "../../assets/icon/banner1.png";
-import banner2 from "../../assets/icon/banner2.png";
-import banner3 from "../../assets/icon/banner3.png";
-import banner4 from "../../assets/icon/banner4.png";
+import banner1 from "../../assets/image/Banner1.jpg";
+import banner2 from "../../assets/image/Banner2.jpg";
+import banner3 from "../../assets/image/Banner3.jpg";
 import "../HomePage/HomePage.scss";
 
 const HomePage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const images = [banner1, banner2, banner3, banner4];
+  const images = [banner1, banner2, banner3];
 
   useEffect(() => {
     const interval = setInterval(() => {

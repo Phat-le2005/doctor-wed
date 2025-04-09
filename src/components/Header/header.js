@@ -3,7 +3,7 @@ import { FaTiktok,FaFacebookF ,FaYoutube} from "react-icons/fa";
 import { FaInstagram,FaUser } from "react-icons/fa6";
 import logo from '../../assets/image/BVdaihocyduoc.png';
 import headphone from '../../assets/icon/garden_headset.png'
-
+import { Link, useNavigate } from 'react-router-dom';
 function Header() {
   return (
     <>
@@ -36,10 +36,15 @@ function Header() {
         </div>
         <nav className="header-list">
             <ul>
-                <li > <span>Khám Chuyên Khoa</span>
+                <li >  
+                     <Link to="/department">
+                        <span style={{top:"1px"}}>Khám Chuyên Khoa</span>
+                    </Link>
                   </li>
-                  <li > 
-                        <span>Khám Theo Bác Sĩ</span>
+                  <li > <Link to="/doctor_service">
+                  <span style={{top:"1px"}}>Khám Theo Bác Sĩ</span>
+                  </Link>
+                        
                   </li>
                 <li className='temp'><span>Khám sức khỏe doanh nghiệp</span></li>
                 <li ><span>Hướng Dẫn</span></li>

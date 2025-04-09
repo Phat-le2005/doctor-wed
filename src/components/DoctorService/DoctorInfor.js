@@ -1,8 +1,41 @@
-import "../DoctorService/DoctorInfor.scss"
-import iconArrow from '../../assets/icon/Polygon2.png'
-import Footer from "../Footer/Footer"
-import doctorImage from '../../assets/image/bacsitieuhoa.png'
-const DoctorInfor = ()=>{
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import "../DoctorService/DoctorInfor.scss";
+import iconArrow from '../../assets/icon/Polygon2.png';
+import Footer from "../Footer/Footer";
+import {getDataDoctor} from "../../service/doctorService"
+import { toast } from 'react-toastify';
+const DoctorInfor = () => {
+  const { id: doctorId } = useParams();
+  const [dataDoctor, setDataDoctor] = useState({});
+  const [loading, setLoading] = useState(true); // Added loading state
+  useEffect(()=>{
+    FerchDataDoctor()
+  },[doctorId])
+  const FerchDataDoctor = async () => {
+    try {
+      const data = await getDataDoctor(doctorId);
+      console.log("Dữ liệu trả về từ API:", data);
+  
+      if (data.errCode !== 0 || !data.data || data.data.length === 0) {
+        toast.error("Không tìm thấy thông tin bác sĩ");
+        return;
+      }
+  
+      setDataDoctor(data.data[0]); // ✅ lấy object bác sĩ
+    } catch (error) {
+      toast.error("Lỗi khi tải thông tin bác sĩ");
+    } finally {
+      setLoading(false); // đừng quên tắt loading
+    }
+  };
+
+
+  // Render loading state
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
     return(
         <div className="body">
             <div className="Text">
@@ -10,18 +43,18 @@ const DoctorInfor = ()=>{
                 <img src={iconArrow} style={{width:"10px",height:"10px"}}></img>
                 <span >Khám Theo Bác Sĩ</span>
                 <img src={iconArrow} style={{width:"10px",height:"10px"}}></img>
-                <span style={{color:"#35B8FF"}}>THS.BS Vu Thi Mai Uyen</span>
+                <span style={{color:"#35B8FF"}}> {dataDoctor?.position ? `${dataDoctor.position} ${dataDoctor.doctorName}` : "Đang tải..."}</span>
             </div>   
             <div className="Inforrr">
                 <div className='Hinhanh'>
-                    <img src={doctorImage}></img>
+                    <img src={dataDoctor.doctorImage}></img>
                 </div>
             <div className='infor'>
-                <div className='Name'>Ths.BS Vu Thi Mai Uyen</div>
-                <div className='chuyenKhoa'><span>Chuyen Khoa: </span>Khoa Tieu Hoa</div>
-                <div className='chuyenTri'><span>Chuyen Tri: </span>Viem da day,Ta Trang,....</div>
+                <div className='Name'> {dataDoctor?.position ? `${dataDoctor.position} ${dataDoctor.doctorName}` : "Đang tải..."}</div>
+                <div className='chuyenKhoa'><span>Chuyen Khoa: </span>{dataDoctor.Specialties[0].Department.departmentName} </div>
+                <div className='chuyenTri'><span>Chuyen Tri: </span>{dataDoctor.Specialties.length>0 && dataDoctor.Specialties && dataDoctor.Specialties.map((item,index)=>item.specialtyName +", ")}</div>
                 <div className='LichKham'><span>Lich Kham: </span>Thu 2, Thu 3, Thu 4</div>
-                <div className='Gioitinh'><span>Gioi Tinh: </span>Nu</div>
+                <div className='Gioitinh'><span>Gioi Tinh: </span>{dataDoctor.sex && dataDoctor.sex ? "Nam" : "Nữ"}</div>
                 </div>
                 <div className='button'>
                     Dat Kham Ngay
@@ -31,20 +64,22 @@ const DoctorInfor = ()=>{
                 <div className="GioiThieu">
                     <span style={{color:"#35B8FF",fontSize:"25px",fontWeight:"500"}}>Gioi Thieu</span><br></br>
                     <span style={{fontSize:"18px",fontWeight:"500",marginLeft:""}}>
-                    Bác sĩ Đoàn Thị Bích Vân là một chuyên gia nữ trong lĩnh vực da liễu, sở hữu nhiều năm kinh nghiệm đáng kể trong việc điều trị các vấn đề liên quan đến da.{<br></br>}
-                    Bác sĩ Bích Vân có chuyên môn cao trong việc khám và chẩn đoán các bệnh da liễu đa dạng, bao gồm viêm da cơ địa, vẩy nến, nấm da, và nhiều tình trạng da khác. Sự tận tâm của bác không chỉ thể hiện qua kiến thức chuyên sâu mà còn qua khả năng tương tác tốt với người bệnh, tạo cảm giác tin tưởng và thoải mái trong quá trình điều trị.
+                    {dataDoctor.introduce.split('\n').map((line, index) => (
+                      <div key={index}>{line}</div>
+                    ))}
                     </span>
                 </div>
                 <div className="HocVan">
                     <span style={{fontSize:"25px",fontWeight:"500"}}>Qua Trinh Dao Tao</span> <br></br>
                     <span style={{fontSize:"18px",fontWeight:"500"}}>
-                    -Học chuyên khoa 1 tại Đại Học Y Dược TP. Hồ Chí Minh.{<br></br>}
-                    -Tham gia lớp laser tại Bệnh viện Da Liễu TP. Hồ Chí Minh.{<br></br>}
-                    -Tham gia lớp filer tại Đại Học Y Dược TP. Hồ Chí Minh.{<br></br>}
+                    {dataDoctor.HocVan.split('\n').map((line, index) => (
+                      <div key={index}>{line}</div>
+                    ))}
                     </span>
                     <span style={{fontSize:"25px",fontWeight:"500"}}>Qua Trinh Cong Tac</span><br></br>
-                    <span style={{fontSize:"18px",fontWeight:"500"}}>-Năm 2021-2022: Phòng khám chuyên khoa da liễu Thành Đạt.<br></br>
-                    -Năm 2023: Bệnh viện Đa khoa Hoàn Hảo.</span>
+                    <span style={{fontSize:"18px",fontWeight:"500"}}> {dataDoctor.CongTac.split('\n').map((line, index) => (
+                      <div key={index}>{line}</div>
+                    ))}</span>
                 </div>
             </div>
             <Footer></Footer>       

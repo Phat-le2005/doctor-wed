@@ -1,9 +1,17 @@
-.bodyDepartment{
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }.bodyDepartment{
     width: 100%;
     background-color: #DFF2FD;
     height: 1920px;
     display: flex;
     flex-direction: column;
+    .Banner{
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
+        height: 321px;
     img{
         width: 100%;
         background-color: #fff;
@@ -22,5 +30,150 @@
         .TrangChu:hover {
             color: #35B8FF;
         }
+    }.group {
+        display: flex;
+        line-height: 28px;
+        align-items: center;
+        position: relative;
+        max-width: 90%;
+        bottom: 200px;
+        margin-left: 400px;
+        .input {
+            width: 700px;
+            height: 50px;
+            line-height: 28px;
+            
+            padding: 0 1rem;
+            padding-left: 2.5rem;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            outline: none;
+            border: 1px solid rgb(185, 184, 184);
+            background-color: #f3f3f4;
+            color: #0d0c22;
+            transition: .3s ease;
+           }
+           
+           .input::placeholder {
+            color: #9e9ea7;
+           }
+           
+           .input:focus, input:hover {
+            outline: none;
+            border-color: rgba(234,76,137,0.4);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+           }
+           
+           .icon {
+            position: absolute;
+            left: 1rem;
+            fill: #9e9ea7;
+            width: 1rem;
+            height: 1rem;
+           }
+           .more{
+            position: absolute;
+            display: flex;
+            color: #9e9ea7;
+            height: 80%;margin-left: 560px;
+            justify-content: center;
+            .icons{
+                margin-top: 5px;
+            }
+           }
+       }
     }
-}
+    .action{
+        width: 100%;
+        height: 150px !important;
+        display: flex;
+        position: relative;
+        border-bottom: 1px solid;
+        gap:10px;
+        justify-content: center;
+        padding: 10px;
+        padding-left: 30px;
+        align-items: center;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
+        background-color: #ffffff;
+        .btnKhoa{
+            cursor: pointer;
+            width: auto;
+            max-width: 250px;
+            height: 70px;
+            padding: 20px;
+            font-weight: 600;
+            background-color: #C9ECFF;
+            color: #35B8FF;
+            border-radius: 50px;
+            padding-top: 22px;
+            span{
+                font-size: 16px;
+                font-family: "Roboto";
+            }
+            &.active { // ✅ dùng `&` để áp dụng nếu class "active" được thêm vào cùng
+                color: #ffffff;
+                background-color: #35B8FF;
+               
+              }
+            &:hover{
+                color: #ffffff;
+                background-color: #35B8FF;
+            }
+        }
+    } 
+    .Content{
+        width: 100%;
+        background-color: #E8F2F7;
+           .content-main{
+            padding-top: 90px;
+            width: 100%;
+            height: 1200px;
+            display: flex;
+            flex-direction: row;
+            
+            .departmentCard{
+                width: 70%;
+                padding-left: 60px;
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+            }
+            .inforr{
+                width: 40%;
+                display: flex;
+                // justify-content: center;
+                // align-items: center;
+                gap: 50px;
+                margin-right: 50px;
+                flex-direction: column ;
+                .ThongTinBV{
+                    width: 600px !important;
+                    z-index: 100;
+                    height: 347px;
+                    background-color: #ffffff;
+                    border-radius: 15px;
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
+                    padding: 15px;
+                    padding-left: 30px;
+                    span{
+                        font-size: 22px;
+                        color: #ff0000;
+                        font-weight: 600;
+                    }
+                }
+                .TriAn{
+                    width: 600px !important;
+                    z-index: 100;
+                    // height: 347px;
+                    background-color: #ffffff;
+                    border-radius: 15px;
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
+                    padding: 15px;
+                    padding-left: 30px;
+                    
+                }
+            }
+           } 
+}}

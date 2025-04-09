@@ -1,8 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 .body{
     width: 100%;
     background-color: #DFF2FD;
     display: flex;
-    height: 1080px !important;
+    height: 1180px !important;
     position: relative;
     flex-direction: column;
     .Text{
@@ -123,11 +128,12 @@
         gap: 50px;
         margin-top: 50px;
         margin-bottom: 50px;
-        
+        height: 700px !important;
+
         .GioiThieu{
             padding-left: 20px !important;
             width: 600px;
-            height: 350px;
+            height: 450px;
             border-radius: 15px;
             background-color: #ffffff;
             padding: 10px;
@@ -136,7 +142,7 @@
         .HocVan{
             padding-left: 20px !important;
             width: 600px;
-            height: 350px;
+            height: 450px;
             border-radius: 15px;
             background-color: #ffffff;
             padding: 10px;

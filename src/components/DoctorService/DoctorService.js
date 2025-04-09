@@ -4,7 +4,31 @@ import iconArrow from '../../assets/icon/Polygon2.png'
 import { IoMdArrowDropright } from "react-icons/io";
 import DoctorCard from '../DoctorService/DoctorCard'
 import Footer from '../Footer/Footer';
+import ReactPaginate from "react-paginate";
+import { getAllDoctorPaginate } from '../../redux/action/doctorAction';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 const DoctorService = () =>{
+    const LIMIT_DOCTOR = 5;
+    const dispatch = useDispatch();
+    const [listDoctor,setListDoctor] = useState([])
+    const [currentPage,setCurrentPage] = useState(0)
+    const [pageCount,setPageCount] = useState(0)
+    useEffect(()=>{
+        FetchListDoctorPaginate(currentPage)
+    },[currentPage])
+    const handlePageClick =(event)=>{
+        setCurrentPage(+event.selected+1)
+        FetchListDoctorPaginate(+event.selected+1)
+    }
+    const FetchListDoctorPaginate = async(page) =>{
+        let res = await dispatch(getAllDoctorPaginate(page,LIMIT_DOCTOR));
+        if(res.errCode === 0 ){
+            console.log(res.data)
+            setListDoctor(res.data)
+            setPageCount(res.totalPages)
+        }
+    }
     return(
         <div className="doctorContainer">
             <div style={{  borderBottom: "2px solidrgb(79, 78, 78)"}}>
@@ -23,7 +47,32 @@ const DoctorService = () =>{
                 </div>
                 <div className='content-main'>
                     <div className='doctorCard'>
-                        <DoctorCard></DoctorCard>
+                        {listDoctor && listDoctor.length >0 && 
+                            listDoctor.map((item,index)=>  <DoctorCard data={item} key={index}/>)
+                        }
+                        <div className="btn-Paginate" style={{display:"flex",justifyContent:"center",position:"relative",right:"60px"}}>
+        <ReactPaginate
+        nextLabel=">>"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={2}
+        pageCount={pageCount}
+        previousLabel="<<"
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        previousClassName="page-item"
+        previousLinkClassName="page-link"
+        nextClassName="page-item"
+        nextLinkClassName="page-link"
+        breakLabel="..."
+        breakClassName="page-item"
+        breakLinkClassName="page-link"
+        containerClassName="pagination"
+        activeClassName="active"
+        renderOnZeroPageCount={null}
+        forcePage={currentPage-1}
+      />
+      </div>
                     </div>
                     <div className='inforr'>
                         <div className='ThongTinBV'>

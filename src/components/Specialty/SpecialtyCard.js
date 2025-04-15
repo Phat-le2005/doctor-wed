@@ -10,7 +10,7 @@ const SpecialtyCard = ({ data }) => {
   
   };
     return (
-      <div className='Card'  onClick={handleCardClick}>
+      <div className='Carddd'  onClick={handleCardClick}>
         <div className='Hinhanh'>
           <img src={`http://localhost:8082${data.imageDepartment}`} alt={data.departmentName} />
         </div>

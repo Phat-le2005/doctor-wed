@@ -15,6 +15,7 @@ import Department from "./components/Department/Department";
 import Select_pathology from "./components/Appoinment/Select_pathology";
 import Select_doctor from "./components/Appoinment/Select_doctor";
 import AppointmentView from "../src/views/AppointmentView"
+import SelectTime from "../src/components/Appoinment/Select_time"
 import Select_day from "../src/components/Appoinment/Select_day"
 const NotFound = () => {
   return (
@@ -36,16 +37,16 @@ const Layout = () => {
           <Route path="department" element={<Specialty></Specialty>}></Route>
           <Route path="specialty/:id" element={<Department/>}></Route>
         </Route>
-        <Route path="/appointment" element={<AppointmentView></AppointmentView>}>
-          <Route path="select_pathology/:id" index element={ <DoctorProvider>
-    <Select_pathology />
-  </DoctorProvider>}/>
-          <Route path="select_doctor" element={<Select_doctor></Select_doctor>}></Route>
-          <Route path="select_day/:id" element={ <DoctorProvider>
-                                              <Select_day />
-                                            </DoctorProvider>
-                                          }></Route>
-        </Route>
+        <Route path="/appointment" element={
+        <DoctorProvider>
+          <AppointmentView />
+        </DoctorProvider>
+      }>
+        <Route path="select_pathology/:id" index element={<Select_pathology />} />
+        <Route path="select_doctor" element={<Select_doctor />} />
+        <Route path="select_day/:id" element={<Select_day />} />
+        <Route path="select_time/:id" element={<SelectTime />} />
+      </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Admin />}>
           <Route index element={<DashBoard></DashBoard>} />{" "}

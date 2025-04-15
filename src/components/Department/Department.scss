@@ -6,6 +6,7 @@
   }.bodyDepartment{
     width: 100%;
     background-color: #DFF2FD;
+    overflow: hidden;
     height: 1920px;
     display: flex;
     flex-direction: column;
@@ -126,6 +127,7 @@
     .Content{
         width: 100%;
         background-color: #E8F2F7;
+        margin-bottom: 20px;
            .content-main{
             padding-top: 90px;
             width: 100%;

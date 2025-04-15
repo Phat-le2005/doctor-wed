@@ -4,6 +4,7 @@
     box-sizing: border-box;
   }.doctorContainer{
     width: 100%;
+    overflow: hidden;
     background-color: #DFF2FD;
     height: 1920px;
     display: flex;
@@ -29,7 +30,7 @@
     .Content{
         width: 100%;
         background-color: #E8F2F7;
-        
+        margin-bottom: 20px;
         .group {
             display: flex;
             line-height: 28px;

@@ -4,7 +4,7 @@ import iconArrow from '../../assets/icon/Polygon2.png'
 import Hospital from '../../assets/icon/iconHospital.png'
 import Ck from '../../assets/icon/iconCk.png'
 import Doctor from '../../assets/icon/iconDoctor.png'
-
+import {get_schedule} from"../../service/scheduleService"
 import { useState,useEffect } from 'react'
 import { toast } from 'react-toastify'
 import {
@@ -17,22 +17,64 @@ import {
   isSameDay,
   addMonths,
   subMonths,
+  getDay,
   parseISO,
 } from "date-fns";
 import { useDoctor } from './doctorContext'
 import "./select_day.scss"
+import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import phongkham from "../../assets/icon/phongKham.png"
 const Select_day = () =>{
     const [currentMonth, setCurrentMonth] = useState(new Date(2025, 3)); // Tháng 3/2025
     const [selectedDate, setSelectedDate] = useState(null);
-    const allowedDates = [
-        "2025-03-15",
-        "2025-03-20",
-        "2025-03-25",
-      ];
-      const { dataDoctor, loading,specialty } = useDoctor();
-      if (loading) {
+    const [allowedWeekdays,setallowedWeekdays]= useState([])
+    const { dataDoctor, specialty, setDataSchedule, dataSchedule ,loading,setLoading ,setDay} = useDoctor();
+    const { id: doctorId } = useParams();
+    const navigate = useNavigate()
+   const handleChooseDay =(data)=>{
+    setDay(data)
+    setTimeout(() => {
+      navigate(`/appointment/select_time/${doctorId}`);
+    }, 0);
+   }
+        useEffect(() => {
+          const fetchSchedule = async () => {
+            if (dataDoctor?.doctorId && specialty?.specialtyId) {
+              setLoading(true); // 👈 báo đang loading
+              try {
+                const res = await get_schedule(doctorId, specialty.specialtyId);
+                if (res.errCode === 0 && res.schedules) {
+                  setDataSchedule(res);
+                 
+                  
+                } else {
+                  toast.error("Không tìm thấy lịch khám");
+                }
+              } catch {
+                toast.error("Lỗi khi tải lịch khám");
+              } finally {
+                setLoading(false); // 👈 ngưng loading
+              }
+            }
+          };
+          fetchSchedule();
+        }, [dataDoctor, specialty]);
+        useEffect(() => {
+          if (dataSchedule && Array.isArray(dataSchedule.schedules) && dataSchedule.schedules.length > 0) {
+            // Giả sử bạn lấy workDay từ lịch đầu tiên
+            const firstSchedule = dataSchedule.schedules[0];
+            if (firstSchedule.workDay) {
+              const str = firstSchedule.workDay;
+              const weekdays = str.split(',').map(num => parseInt(num) - 1); // Chuyển về dạng 0-6
+              setallowedWeekdays(weekdays);
+            }
+          }
+        }, [dataSchedule]);
+      if (loading || !dataDoctor || !specialty) {
         return <div>Loading...</div>;
       }
+      console.log(dataSchedule)
     const styles = {
         header: {
           display: "flex",
@@ -58,17 +100,53 @@ const Select_day = () =>{
         },
       };
       
-    const renderHeader = () => {
-      return (
-        <div style={styles.header}>
-          <button className='buttonClick' onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}>←</button>
-          <span style={{ fontWeight: "bold",fontSize:"16px",display:"flex",justifyContent:"center",alignItem:"center",height:"80%" }}>
-            Tháng {format(currentMonth, "MM")} - {format(currentMonth, "yyyy")}
-          </span>
-          <button className='buttonClick' onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}>→</button>
-        </div>
-      );
-    };
+      const renderHeader = () => {
+        const today = new Date();
+        const isPrevDisabled =
+          currentMonth.getFullYear() === today.getFullYear() &&
+          currentMonth.getMonth() <= today.getMonth(); // 👈 nếu đang ở tháng hiện tại hoặc nhỏ hơn
+      
+        return (
+          <div style={styles.header}>
+            <button
+              className='buttonClick'
+              onClick={() => {
+                if (!isPrevDisabled) {
+                  setCurrentMonth(subMonths(currentMonth, 1));
+                }
+              }}
+              disabled={isPrevDisabled}
+              style={{
+                cursor: isPrevDisabled ? "not-allowed" : "pointer",
+                opacity: isPrevDisabled ? 0.4 : 1,
+              }}
+            >
+              ←
+            </button>
+            <span
+              style={{
+                fontWeight: "bold",
+                fontSize: "16px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "80%",
+                position:"relative",
+                bottom: "15px"
+
+              }}
+            >
+              Tháng {format(currentMonth, "MM")} - {format(currentMonth, "yyyy")}
+            </span>
+            <button
+              className='buttonClick'
+              onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
+            >
+              →
+            </button>
+          </div>
+        );
+      };
   
     const renderDays = () => {
       const days = ["CN", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy"];
@@ -87,20 +165,19 @@ const Select_day = () =>{
       const monthStart = startOfMonth(currentMonth);
       const monthEnd = endOfMonth(monthStart);
       const startDate = startOfWeek(monthStart, { weekStartsOn: 0 });
-  
+    
       const rows = [];
       let days = [];
       let day = startDate;
-  
+    
       while (day <= monthEnd || days.length % 7 !== 0) {
         for (let i = 0; i < 7; i++) {
           const cloneDay = day;
-          const dateStr = format(day, "yyyy-MM-dd");
-          const isAllowed = allowedDates.includes(dateStr);
-  
+          const isAllowed = allowedWeekdays.includes(getDay(day));
           const isSelected = selectedDate && isSameDay(day, selectedDate);
           const isCurrentMonth = isSameMonth(day, monthStart);
-  
+          const isPastMonth = day < monthStart; // 👈 Vô hiệu hóa ngày tháng trước
+    
           days.push(
             <div
               key={day}
@@ -108,20 +185,25 @@ const Select_day = () =>{
                 ...styles.cell,
                 color: isCurrentMonth ? "#000" : "#ccc",
                 background: isSelected ? "#4dc4ff" : "#fff",
-                fontWeight: isAllowed ? "bold" : "normal",
-                cursor: isAllowed ? "pointer" : "default",
-                opacity: isAllowed ? 1 : 0.3,
+                fontWeight: isAllowed && !isPastMonth ? "bold" : "normal",
+                cursor: isAllowed && !isPastMonth ? "pointer" : "not-allowed",
+                opacity: isAllowed && !isPastMonth ? 1 : 0.3,
                 borderRadius: 4,
               }}
-              onClick={() => isAllowed && setSelectedDate(cloneDay)}
+              onClick={() => {
+                if (isAllowed && !isPastMonth) {
+                  setSelectedDate(cloneDay);
+                  handleChooseDay(cloneDay)
+                }
+              }}
             >
               {format(day, "d")}
             </div>
           );
-  
+    
           day = addDays(day, 1);
         }
-  
+    
         rows.push(
           <div key={day} style={styles.row}>
             {days}
@@ -129,10 +211,13 @@ const Select_day = () =>{
         );
         days = [];
       }
-  
+    
       return <div>{rows}</div>;
     };
-  
+    
+    if (!dataSchedule || !dataSchedule.schedules) {
+      return <div>Đang tải dữ liệu lịch khám...</div>;
+    }
     return(
         <div className='Sp-bodyy'>
             <div className='Container'>
@@ -166,14 +251,18 @@ const Select_day = () =>{
                             </div>
                             <div className='item'>
                                 <img src={Ck}></img>
-                                <span>Chuyên khoa : </span>
+                                <span>Chuyên khoa : {specialty.Department.departmentName}</span>
+                            </div>
+                             <div className='item'>
+                              <img src={phongkham}></img>
+                              <span>Phòng Khám: {dataSchedule.schedules[0].Room.toa+"."+dataSchedule.schedules[0].Room.floor+dataSchedule.schedules[0].Room.roomNumber }</span>
                             </div>
                         </div>
 
                     </div>
                     <div className='Action'>
                         <div className='TAction'>
-                            <span>Vui Lòng Chọn Bệnh Lý</span>
+                            <span>Vui Lòng Chọn Ngày Khám</span>
                         </div>
                         <div className='KAction'>
                             {renderHeader()}

@@ -155,6 +155,8 @@ $text-color: #333;
         text-align: center;
         .temp{
             width: 240px;
+            position: relative;
+            top:12px;
         }
         li {
             margin: 0 15px;

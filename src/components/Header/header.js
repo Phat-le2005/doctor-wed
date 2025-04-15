@@ -3,13 +3,17 @@ import { FaTiktok,FaFacebookF ,FaYoutube} from "react-icons/fa";
 import { FaInstagram,FaUser } from "react-icons/fa6";
 import logo from '../../assets/image/BVdaihocyduoc.png';
 import headphone from '../../assets/icon/garden_headset.png'
-import { Link, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 function Header() {
+    const navigate = useNavigate()
+    const userLogin = useSelector((state) => state.userLogin.userLogin);
+    console.log(userLogin)
   return (
     <>
     <header className='header-container '>
          <div className="logo">
-           <img src={logo} title='anh nen'></img>
+           <img src={logo} title='anh nen' alt="Logo của bệnh viện" ></img>
         </div>
         <div className='header-content'>
     <div className="header-top">
@@ -21,13 +25,13 @@ function Header() {
         </div>
         <div className="header-action">
             <button className="app-btn">📱 Tải ứng dụng</button>
-            <button className="account-btn"><FaUser/> Tài khoản</button>
+            <button className="account-btn" onClick={()=>navigate('/register')}><FaUser/> {userLogin ? userLogin.userName:'Tài khoản'}</button>
         </div>
     </div>
 
     <div className="header-bottom">
         <div className="hotline">
-            <img src={headphone}></img> 
+            <img src={headphone} alt="headphone" ></img> 
             <div>
                 Hỗ Trợ Đặt Khám
                 <br></br>
@@ -37,17 +41,16 @@ function Header() {
         <nav className="header-list">
             <ul>
                 <li >  
-                     <Link to="/department">
-                        <span style={{top:"1px"}}>Khám Chuyên Khoa</span>
-                    </Link>
+                        <span style={{top:"1px"} } onClick={()=>navigate("/department")}>Khám Chuyên Khoa</span>
+                   
                   </li>
-                  <li > <Link to="/doctor_service">
-                  <span style={{top:"1px"}}>Khám Theo Bác Sĩ</span>
-                  </Link>
+                  <li > 
+                  <span style={{top:"1px"} } onClick={()=>navigate("/doctor_service")}>Khám Theo Bác Sĩ</span>
+                  
                         
                   </li>
                 <li className='temp'><span>Khám sức khỏe doanh nghiệp</span></li>
-                <li ><span>Hướng Dẫn</span></li>
+                <li className='temp'><span>Hướng Dẫn</span></li>
             </ul>
         </nav>
     </div>

@@ -1,4 +1,4 @@
-import { CREATE_USER_ERROR, CREATE_USER_REQUEST, CREATE_USER_SUCCESS, FERTCH_USER_ERROR, FERTCH_USER_REQUEST, FERTCH_USER_SUCCESS ,GET_ALL_PAGINATE_ERROR,GET_ALL_PAGINATE_REQUEST,GET_ALL_PAGINATE_SUCCESS} from "./types"
+import { FERTCH_USER_LOGOUT,CREATE_USER_ERROR, CREATE_USER_REQUEST, CREATE_USER_SUCCESS, FERTCH_USER_ERROR, FERTCH_USER_REQUEST, FERTCH_USER_SUCCESS ,GET_ALL_PAGINATE_ERROR,GET_ALL_PAGINATE_REQUEST,GET_ALL_PAGINATE_SUCCESS} from "./types"
 import axios from "axios"
 export const createUserSuccess = (data)=>{
     return {
@@ -66,22 +66,27 @@ export const getAllUserPaginateError = ()=>{
         type: GET_ALL_PAGINATE_ERROR,
     }
 }
-export const doLogin = (user) => {
-    return async (dispatch, getState) => {
-        dispatch(fertchUserRequest());
-        try {
-            let { email, password } = user;
-            let res = await axios.post("http://localhost:8082/api/login", { email, password });
-            if (res && res.data.errCode === 0) {
-                dispatch(fertchUserSuccess(res.data.user));
-                return {success: true}
-            }
-        } catch (e) {
-            dispatch(fertchUserError());
-            return {success: false}
+export const getUserData = () => {
+    return async (dispatch) => {
+      dispatch(fertchUserRequest());
+  
+      try {
+        const res = await axios.get("http://localhost:8082/api/get_user", {
+          withCredentials: true // 👈 QUAN TRỌNG: gửi cookie
+        });
+        console.log("User data từ server:", res.data.user);
+        if (res?.data?.user) {
+            dispatch(fertchUserSuccess(res.data.user));
+          }else {
+          dispatch(fertchUserError());
+          return { success: false };
         }
+      } catch (e) {
+        dispatch(fertchUserError());
+        return { success: false };
+      }
     };
-};
+  };
 export const getAllUserPaginate=(pageNumber,limitNumber)=>{
     return async (dispatch,getState) =>{
         dispatch(getAllUserPaginateRequest());
@@ -99,3 +104,19 @@ export const getAllUserPaginate=(pageNumber,limitNumber)=>{
          }
     }
 }
+export const logoutUser = () => ({
+    type: FERTCH_USER_LOGOUT,
+  });
+  
+  // Thực hiện logout, xóa cookie trên client và reset Redux store
+  export const logout = () => {
+    return async (dispatch) => {
+      // Xóa cookie access_token và refresh_token
+      document.cookie = "access_token=; path=/; max-age=0;"; // Xóa access_token
+      document.cookie = "refresh_token=; path=/; max-age=0;"; // Xóa refresh_token
+  
+      // Dispatch action logout thành công
+      dispatch(logoutUser());
+      return { success: true };
+    };
+  };

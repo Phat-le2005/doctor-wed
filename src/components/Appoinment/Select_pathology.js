@@ -6,12 +6,46 @@ import Ck from '../../assets/icon/iconCk.png'
 import Doctor from '../../assets/icon/iconDoctor.png'
 import { useDoctor } from './doctorContext'
 import { useNavigate } from 'react-router-dom'
+import { getDataDoctor } from '../../service/doctorService'
+import { useState,useEffect } from 'react'
+import { toast } from 'react-toastify'
+import { useParams } from 'react-router-dom'
 const Select_pathology = () =>{ 
-    const { dataDoctor, loading,specialty,setSpecialty } = useDoctor();
+    const { dataDoctor,
+        setDataDoctor,
+        loading,
+        setLoading,
+        specialty,
+        setSpecialty,
+        dataSchedule,
+        setDataSchedule, } = useDoctor();
+    const { id: doctorId } = useParams();
+    
+    useEffect(() => {
+      const fetchDoctor = async () => {
+        try {
+          setLoading(true);
+          const res = await getDataDoctor(doctorId);
+          if (res.errCode === 0 && res.data.length > 0) {
+            setDataDoctor(res.data[0]);
+          } else {
+            toast.error("Không tìm thấy thông tin bác sĩ");
+          }
+        } catch {
+          toast.error("Lỗi khi tải thông tin bác sĩ");
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchDoctor();
+    }, [doctorId]);
+   
     const navigate = useNavigate()
     const choiceSpecialty = (data) =>{
         setSpecialty(data)
-        navigate(`/appointment/select_day/${dataDoctor.doctorId}`)
+        setTimeout(() => {
+            navigate(`/appointment/select_day/${doctorId}`);
+          }, 0);
     }
     if (loading) {
       return <div>Loading...</div>;

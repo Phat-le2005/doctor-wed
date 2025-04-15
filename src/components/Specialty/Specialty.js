@@ -12,9 +12,7 @@ const Specialty = () => {
   const [listCard, setListCard] = useState([]);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    fetchDataDepartment();
-  }, []);
+
 
   const fetchDataDepartment = async () => {
     try {
@@ -28,7 +26,9 @@ const Specialty = () => {
       toast.error("Có lỗi xảy ra khi gọi API");
     }
   };
-
+  useEffect(() => {
+    fetchDataDepartment();
+  }, []);
   return (
     <div className="bodyy">
       <div className="Banner">

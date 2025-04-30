@@ -75,7 +75,7 @@ const handleOtpChange = (index, value) => {
         <span>OR</span>
         <div></div>
     </div>
-    <input style={{width:"350px",height:"40px"}} type="email" placeholder="Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+    <input style={{width:"350px",height:"40px",padding:"10px",borderRadius:"10px"}} type="email" placeholder="Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
     <button class="oauthButton" onClick={handleContinue}>
                     Continue
                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 17 5-5-5-5"></path><path d="m13 17 5-5-5-5"></path></svg>

@@ -1,0 +1,59 @@
+.bodyHoso{
+    width: 100%;
+    overflow: hidden;
+   
+    img{
+        position: relative;
+        width: 100%;
+        height: 687px;
+    }
+    .iconBanner{
+        position: absolute;
+        bottom: 940px;
+        margin-left: 50px;
+        span{
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .TrangChu:hover {
+            color: #35B8FF;
+        }
+    }
+    .Action{
+        display: flex;
+        width: 500px;
+        font-size: 16px;
+        bottom: 380px;
+        left: 550px;
+        height: auto;
+        position: absolute;
+        justify-content: space-between;
+        span{
+            cursor: pointer;
+            &:hover{
+             color: #35B8FF;   
+            }
+        }
+        .btn-add{
+            width: 175px;
+            height: 40px;
+            background-color: #35B8FF;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }   
+    }
+    .Footerrr{
+        width: 100%;
+        
+        img{
+            width: 100%;
+            height: 300px;
+        }
+    }
+}

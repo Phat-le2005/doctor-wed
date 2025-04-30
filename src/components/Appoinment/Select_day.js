@@ -30,12 +30,12 @@ const Select_day = () =>{
     const [selectedDate, setSelectedDate] = useState(null);
     const [allowedWeekdays,setallowedWeekdays]= useState([])
     const { dataDoctor, specialty, setDataSchedule, dataSchedule ,loading,setLoading ,setDay} = useDoctor();
-    const { id: doctorId } = useParams();
+    // const { id: doctorId } = useParams();
     const navigate = useNavigate()
    const handleChooseDay =(data)=>{
     setDay(data)
     setTimeout(() => {
-      navigate(`/appointment/select_time/${doctorId}`);
+      navigate(`/appointment/select_time`);
     }, 0);
    }
         useEffect(() => {
@@ -43,7 +43,7 @@ const Select_day = () =>{
             if (dataDoctor?.doctorId && specialty?.specialtyId) {
               setLoading(true); // 👈 báo đang loading
               try {
-                const res = await get_schedule(doctorId, specialty.specialtyId);
+                const res = await get_schedule(dataDoctor.doctorId, specialty.specialtyId);
                 if (res.errCode === 0 && res.schedules) {
                   setDataSchedule(res);
                  
@@ -251,7 +251,7 @@ const Select_day = () =>{
                             </div>
                             <div className='item'>
                                 <img src={Ck}></img>
-                                <span>Chuyên khoa : {specialty.Department.departmentName}</span>
+                                <span>Chuyên khoa : {specialty?.Department?.departmentName || specialty?.department?.departmentName }</span>
                             </div>
                              <div className='item'>
                               <img src={phongkham}></img>

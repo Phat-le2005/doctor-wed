@@ -1,5 +1,10 @@
 import "./DepartmentCard.scss"
+import { useNavigate } from "react-router-dom";
 const DepartmentCard = ({data,Ck}) =>{
+    const navigate = useNavigate()
+    const DangKy = (Id) => {
+        navigate(`/appointment/select_doctor/${Id}`)
+    }
     return (
         <div className='Cardd'>
         <div className='Hinhanh'>
@@ -10,7 +15,7 @@ const DepartmentCard = ({data,Ck}) =>{
             <div className='chuyenKhoa'><span>Khoa Khám: </span>{Ck}</div>
             <div className='chuyenTri'><span>Triệu chứng: </span>{data.specialtyDescription}</div>
         </div>
-        <div className='buttonnn'>
+        <div onClick={()=> DangKy(data.specialtyId)} className='buttonnn'>
             Dang Ky Ngay
         </div>
     </div>

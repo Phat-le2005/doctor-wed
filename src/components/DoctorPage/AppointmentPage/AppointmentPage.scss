@@ -1,0 +1,261 @@
+.BodyAppointment{
+    width: 100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto  ;
+    background-color: #F5FAFD;
+    .headerPage{    
+        width: 100%;
+        height:90px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+        .group {
+            display: flex;
+            line-height: 28px;
+            align-items: center;
+            position: relative;
+            margin: 15px;
+            max-width: 90%;
+            // margin-top: 10px;
+            // margin-left: 400px;
+            .input {
+                width: 700px;
+                height: 50px;
+                line-height: 28px;
+                
+                padding: 0 1rem;
+                padding-left: 2.5rem;
+                border: 2px solid transparent;
+                border-radius: 20px;
+                outline: none;
+                border: 1px solid rgb(185, 184, 184);
+                background-color: #f3f3f4;
+                color: #0d0c22;
+                transition: .3s ease;
+               }
+               
+               .input::placeholder {
+                color: #9e9ea7;
+               }
+               
+               .input:focus, input:hover {
+                outline: none;
+                border-color: rgba(234,76,137,0.4);
+                background-color: #fff;
+                box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+               }
+               
+               .icon {
+                position: absolute;
+                left: 1rem;
+                fill: #9e9ea7;
+                width: 1rem;
+                height: 1rem;
+               }
+               .more{
+                position: absolute;
+                display: flex;
+                color: #9e9ea7;
+                height: 80%;margin-left: 560px;
+                justify-content: center;
+                .icons{
+                    margin-top: 5px;
+                }
+               }
+           }
+        }
+        .Action{
+            margin-top: 10px;
+            display: flex;
+            width: 100%;
+            gap: 20px;
+            padding-left: 20px;
+            justify-content: start;
+            input{
+                width: 172px;
+                height: 35px;
+                padding: 5px;
+                border: 1px solid;
+                border-radius: 10px;
+                font-weight: 600;
+            }
+            select{
+                width: 150px;
+                height: 35px;
+                padding: 5px;
+                border-radius: 10px;
+                font-weight: 600;
+                border: 1px solid;
+            }
+        }
+        .table-container {
+            padding: 20px;
+            width: 100%;
+
+          }
+          
+          .appointment-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+          }
+          
+          .appointment-table th, .appointment-table td {
+            padding: 10px;
+            text-align: center;
+            font-weight: 600;
+            // border: 1px solid #ccc;
+          }
+          
+          .appointment-table th {
+            background-color: #fff;
+          }
+            .appointment-table tr{
+                border: 1px solid;
+            }
+          .status-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+          }
+          
+          .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 5px;
+          }
+          
+          .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+          }
+          
+          .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+          }
+          .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 50px;
+            z-index: 1000;
+            span{
+                color: #35B8FF;
+                font-size: 18px !important;
+              }
+            .modal-content {
+                margin-top: 100px;
+                background: white;
+                border-radius: 10px;
+                padding: 20px;
+                width: 90%;
+                max-width: 550px;
+                animation: slideDown 0.3s ease;
+                .Action{
+                    display: flex;
+                    gap: 10px;
+                }
+                .CheckBox{
+                    display: flex;
+                    // justify-content: center;
+                    align-items: center;
+                }
+                input{
+                    height: 40px;
+                    padding: 10px;
+                    margin-bottom: 15px;
+                    border-radius: 20px;
+                }
+                .item{
+                    display: flex;
+                    width: 100%;
+                    height: 30px;
+                    align-items: center;
+                    span{
+                      margin-left: 20px;
+                      width: 150px;
+                      display: flex;
+                      justify-content: start;
+                    }
+                    .text{
+                      margin-left: 30px;
+                    }
+                }
+                .Infor2{
+                  display: flex;
+                  gap: 20px;
+                  .item{
+                    margin-bottom: 10px;
+                  }
+                  span{
+                    margin-left: 0;
+                    width: 120px;
+                  }
+                  .text{
+                      display: flex;
+                      width: 150px;
+                  }
+                }
+                span{
+                    display: flex;
+                    justify-content: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+                .change-button {
+                    margin-top: 10px;
+                    width: 100%;
+                    padding: 10px;
+                    background: #35B8FF;
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 16px;
+                  }
+                  
+                  .close-button {
+                    margin-top: 10px;
+                    width: 100%;
+                    padding: 8px;
+                    background: #ccc;
+                    color: black;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 14px;
+                  }
+              }
+              
+              @keyframes slideDown {
+                from {
+                  transform: translateY(-50px);
+                  opacity: 0;
+                }
+                to {
+                  transform: translateY(0);
+                  opacity: 1;
+                }
+              }
+              
+            
+              
+          }  
+}

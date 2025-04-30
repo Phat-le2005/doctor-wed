@@ -20,7 +20,17 @@ const Select_pathology = () =>{
         dataSchedule,
         setDataSchedule, } = useDoctor();
     const { id: doctorId } = useParams();
-    
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+          e.preventDefault();
+          e.returnValue = ''; // Hiển thị popup mặc định
+        };
+      
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+          window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+      }, []);
     useEffect(() => {
       const fetchDoctor = async () => {
         try {
@@ -44,7 +54,7 @@ const Select_pathology = () =>{
     const choiceSpecialty = (data) =>{
         setSpecialty(data)
         setTimeout(() => {
-            navigate(`/appointment/select_day/${doctorId}`);
+            navigate(`/appointment/select_day`);
           }, 0);
     }
     if (loading) {

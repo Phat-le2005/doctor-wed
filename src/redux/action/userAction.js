@@ -1,5 +1,6 @@
 import { FERTCH_USER_LOGOUT,CREATE_USER_ERROR, CREATE_USER_REQUEST, CREATE_USER_SUCCESS, FERTCH_USER_ERROR, FERTCH_USER_REQUEST, FERTCH_USER_SUCCESS ,GET_ALL_PAGINATE_ERROR,GET_ALL_PAGINATE_REQUEST,GET_ALL_PAGINATE_SUCCESS} from "./types"
 import axios from "axios"
+import { toast } from "react-toastify"
 export const createUserSuccess = (data)=>{
     return {
         type: CREATE_USER_SUCCESS,
@@ -117,6 +118,10 @@ export const logoutUser = () => ({
   
       // Dispatch action logout thành công
       dispatch(logoutUser());
+      toast.success("Đăng xuất thành công", {
+        position: "top-right",
+        autoClose: 2000,
+      });
       return { success: true };
     };
   };

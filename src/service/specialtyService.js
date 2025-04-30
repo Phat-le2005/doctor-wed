@@ -15,6 +15,15 @@ const get_specialty = async (page = 1, limit = 10, departmentId) => {
         return [];
     }
 };
+ const getDoctorsBySpecialty = async ( specialtyId, page , limit ) => {
+    try {
+      const response = await axios.get(`/api/getallspecialty?page=${page}&limit=${limit}&specialtyId=${specialtyId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Lỗi khi gọi API getDoctorsBySpecialty:', error);
+      throw error.response?.data || { errCode: 1, errMessage: 'Lỗi không xác định từ client' };
+    }
+  };
 export {
-    get_specialty
+    get_specialty,getDoctorsBySpecialty
 };

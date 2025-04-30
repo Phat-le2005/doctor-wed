@@ -1,0 +1,117 @@
+.bodycheck{
+    width: 100%;
+   .content{
+    width: 100%;
+    height: 667px;
+    background-color: #EAF6FD;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .iconBanner{
+        position: relative;
+        bottom: 100px;
+        margin-right: 1100px;
+        span{
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .TrangChu:hover {
+            color: #35B8FF;
+        }
+    }
+    .title{
+        font-size: 40px;
+        color: #35B8FF;
+        font-weight: 500;
+        position: relative;
+        bottom: 50px;
+    }
+    .Cardddd{
+        width: 400px ;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        .CardContent{
+            width: 400px;
+            height: 300px ;  
+            background-color: #fff;   
+            border-radius: 10px 10px 0 0;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            .item{
+                font-size: 14px;
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                gap: 10px;
+                span{
+                    font-weight: 600;
+                    font-size: 16px;
+                }
+            }
+        }
+        .CardAction{
+            width: 400px;
+            height: 64px;
+            background-color: #fff;   
+            border-radius: 0 0 10px 10px;
+            border-top:1px solid gray;
+            display: flex;
+            padding: 15px;
+            justify-content: space-between;
+            align-items: center;
+            .deUp{
+                display: flex;
+                gap: 20px;
+                .Up{
+                    width: 89px;
+                    height: 35px;
+                    background-color: #DAE6FF;
+                    color: #35B8FF;
+                    font-size: 13px;
+                    border-radius: 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+                }
+                .De{
+                    width: 50px;
+                    height: 35px;
+                    background-color: #F7D8D8;
+                    color: #FF0000;
+                    font-size: 13px;
+                    border-radius: 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+                }
+            }
+            .add{
+                width: 131px;
+                height: 40px;
+                font-size: 13px;
+                background-color: #35B8FF;
+                color: #fff;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+        }
+    }
+   }
+   .Footerrr{
+    width: 100%;
+    
+    img{
+        width: 100%;
+        height: 300px;
+    }
+}
+}

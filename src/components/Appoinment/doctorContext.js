@@ -10,8 +10,8 @@ export const DoctorProvider = ({ children }) => {
   const [dataSchedule, setDataSchedule] = useState(null);
   const [specialty, setSpecialty] = useState(null);
   const [day,setDay] =useState(null)
-  const [scheSelect,setScheSelect] = useState(null)
   const [scheduleId,setScheduleId] = useState(null)
+  const [dataHoSo,setDataHoSo] = useState(null)
   return (
     <DoctorContext.Provider
       value={{
@@ -25,9 +25,9 @@ export const DoctorProvider = ({ children }) => {
         setDataSchedule,
         setDay,
         day,
-        scheSelect,
-        setScheSelect,
-        scheduleId,setScheduleId
+        scheduleId,setScheduleId,
+        dataHoSo,
+        setDataHoSo
       }}
     >
       {children}

@@ -25,18 +25,35 @@ import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 import { useDoctor } from './doctorContext'
 import "./Select_time.scss"
+import { get_Hoso } from '../../service/hoSoService'
 import { useParams } from 'react-router-dom'
-
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 dayjs.extend(isoWeek); // 👈 Thêm dòng này
 const SelectTime = () =>{
     const ctx = useDoctor();
     console.log('DoctorContext:', ctx);
-    const { dataDoctor, specialty, setDataSchedule, dataSchedule ,loading,setLoading ,setDay,day,setScheduleId} = useDoctor();
+    const navigate = useNavigate()
+    const { dataDoctor, specialty, setDataSchedule, dataSchedule ,loading,setLoading ,setDay,day,setScheduleId,dataHoSo,setDataHoSo} = useDoctor();
     const { id: doctorId } = useParams();
     const [selectedDate, setSelectedDate] = useState(dayjs());
     const [currentMonth, setCurrentMonth] = useState(new Date(2025, 3));
+    const userLogin = useSelector((state) => state.userLogin.userLogin);
+    const ferchDataHoso = async()=>{
+      const data =await get_Hoso(userLogin.id)
+      if(data.errCode ===1){
+        toast.error("Ko nhan dc Data")
+      }
+      setDataHoSo(data.data)
+    }
+    useEffect(()=>{ferchDataHoso()},[])
     const chooseTime=(scheduleId)=>{
       setScheduleId(scheduleId)
+      if ( dataHoSo.data.length === 0) {
+        navigate("/appointment/hosonone");
+      } else {
+        navigate("/appointment/checkhoso");
+      }
     }
     const styles = {
         header: {
@@ -63,6 +80,17 @@ const SelectTime = () =>{
         },
       };
       console.log(day)
+      useEffect(() => {
+        const handleBeforeUnload = (e) => {
+          e.preventDefault();
+          e.returnValue = ''; // Hiển thị popup mặc định
+        };
+      
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+          window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+      }, []);
       useEffect(() => {
         if (day) {
          
@@ -207,7 +235,7 @@ const SelectTime = () =>{
                                         </div>
                                         <div className='item'>
                                             <img src={Ck}></img>
-                                            <span>Chuyên khoa : {specialty.Department.departmentName}</span>
+                                            <span>Chuyên khoa : {specialty?.Department?.departmentName || specialty?.department?.departmentName }</span>
                                         </div>
                                         <div className='item'>
                                             <img src={phongkham}></img>
@@ -240,9 +268,15 @@ const SelectTime = () =>{
                                             </div>
                                             <div><span style={{fontSize:'18px',fontWeight:"500"}}>Buổi Sáng</span></div>
                                             <div className='SchAction'>
-                                                {dataSchedule.schedules&& dataSchedule.schedules.length>0 && dataSchedule.schedules.map(
-                                                    (item,index)=> <div onClick={chooseTime(item.scheduleId)} className='itemSchedule'>{item.startTime+" - "+item.endTime}</div>
-                                                )}
+                                            {dataSchedule.schedules?.length === 0 ? (
+                                            <div>Không có lịch khám cho ngày này</div>
+                                          ) : (
+                                            dataSchedule.schedules.map(item => (
+                                              <div onClick={() => chooseTime(item.scheduleId)} className='itemSchedule'>
+                                                {item.startTime} - {item.endTime}
+                                              </div>
+                                            ))
+                                          )}
                                             </div>
                                         </div>
                                         </div>

@@ -4,10 +4,47 @@ import { FaInstagram,FaUser } from "react-icons/fa6";
 import logo from '../../assets/image/BVdaihocyduoc.png';
 import headphone from '../../assets/icon/garden_headset.png'
 import {  useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-function Header() {
+import { logout } from '../../redux/action/userAction';
+import { useDispatch } from 'react-redux';
+const Header = ()=> {
     const navigate = useNavigate()
     const userLogin = useSelector((state) => state.userLogin.userLogin);
+    const [showDropdown, setShowDropdown] = useState(false);
+    const dropdownRef = useRef(null);
+    const dispatch = useDispatch()
+    const handleChangePage = () => {
+        if (!userLogin) {
+            navigate("/register");
+        } else {
+            setShowDropdown(!showDropdown);
+        }
+    };
+    const handleChangePageHoso = () =>{
+        navigate('/hosobenhnhan')
+        setShowDropdown(false)
+    }
+    const handleChangePagePKB = () =>{
+        navigate('phieukhambenh')
+        setShowDropdown(false)
+    }
+    const handleLogout = () => {
+        dispatch(logout()).then(() => {
+            setTimeout(() => {
+              navigate("/homepage");
+            }, 2000); // Chờ toast hiển thị rồi mới redirect
+          });
+    };
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowDropdown(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
     console.log(userLogin)
   return (
     <>
@@ -25,7 +62,35 @@ function Header() {
         </div>
         <div className="header-action">
             <button className="app-btn">📱 Tải ứng dụng</button>
-            <button className="account-btn" onClick={()=>navigate('/register')}><FaUser/> {userLogin ? userLogin.userName:'Tài khoản'}</button>
+                        <button className="account-btn" onClick={handleChangePage}>
+                            <FaUser /> {userLogin ? userLogin.userName : 'Tài khoản'}
+                        </button>
+
+                        {showDropdown && userLogin && (
+                            <div className="account-dropdown">
+                                <div className="dropdown-header">
+                                    <FaUser />
+                                    <div>
+                                        <small>Xin chào</small><br />
+                                        <strong>{userLogin.userName}</strong>
+                                    </div>
+                                </div>
+                                <div className='dropdown-content'>
+                                    <div className='item' onClick={()=>handleChangePageHoso()}>
+                                        Hồ Sơ Bệnh Nhân
+                                    </div>
+                                    <div className='item' onClick={()=> handleChangePagePKB()}>
+                                        Phiếu Khám Bệnh
+                                    </div>
+                                    <div className='item'>
+                                       Tra Cứu Hồ Sơ
+                                    </div>
+                                    <hr></hr>
+                                    <div className='item' onClick={()=>handleLogout()}>Đăng Xuất</div>
+
+                                </div>
+                            </div>
+                        )}
         </div>
     </div>
 

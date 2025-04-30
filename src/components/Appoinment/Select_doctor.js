@@ -8,14 +8,84 @@ import sex from '../../assets/icon/sex.png'
 import Schedule from '../../assets/icon/Schedule.png'
 import doctor2 from '../../assets/icon/doctor2.png'
 import Ck2 from '../../assets/icon/Ck2.png'
+import { useParams } from 'react-router-dom'
+import { useDoctor } from './doctorContext'
+import { useState,useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import {getDoctorsBySpecialty} from "../../service/specialtyService"
 const Select_doctor = () =>{
+    const {id: specialtyId} = useParams()
+    console.log(specialtyId)
+    const [datafullDoctor,setDatafullDoctor] = useState(null)
+     const { dataDoctor,
+            setDataDoctor,
+            loading,
+            setLoading,
+            specialty,
+            setSpecialty,
+            dataSchedule,
+            setDataSchedule, } = useDoctor();
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+          e.preventDefault();
+          e.returnValue = ''; // Hiển thị popup mặc định
+        };
+      
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+          window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+      }, []);
+    useEffect(() => {
+      const fetchSpecialty = async () => {
+        try {
+          setLoading(true);
+          const res = await getDoctorsBySpecialty(specialtyId,1,5 );
+          console.log(res)
+          if (res.errCode === 0 && res.data.length > 0) {
+            
+            setSpecialty(res.specialtyInfo);
+            setDatafullDoctor(res.data)
+          } else {
+            toast.error("Không tìm thấy thông tin bác sĩ");
+          }
+        } catch {
+          toast.error("Lỗi khi tải thông tin bác sĩ");
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchSpecialty();
+    }, [specialtyId]);
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+          e.preventDefault();
+          e.returnValue = ''; // Hiển thị popup mặc định
+        };
+      
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+          window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+      }, []);
+      const navigate = useNavigate()
+      const choiceDoctor = (data) =>{
+          setDataDoctor(data)
+          setTimeout(() => {
+              navigate(`/appointment/select_day`);
+            }, 0);
+      }
+      if (loading) {
+        return <div>Loading...</div>;
+      }
     return(
           <div className='Sd-body'>
                     <div className='Container'>
                         <div className="Text">
                             <span>Trang Chu</span>
                             <img src={iconArrow} style={{width:"10px",height:"10px"}}></img>
-                            <span >Khoa Tiêu Hóa</span>
+                            <span >{specialty?.department?.departmentName}</span>
                             <img src={iconArrow} style={{width:"10px",height:"10px"}}></img>
                             <span style={{color:"#35B8FF"}}>Chọn Bác Sĩ</span>
                         </div>  
@@ -36,11 +106,11 @@ const Select_doctor = () =>{
                                     </div>
                                     <div className='item'>
                                         <img src={Ck2}></img>
-                                        <span>Bệnh Lý : Viêm Dạ dày </span>
+                                        <span>Bệnh Lý : {specialty?.specialtyName} </span>
                                     </div>
                                     <div className='item'>
                                         <img src={Ck}></img>
-                                        <span>Chuyên khoa : Tiêu Hóa </span>
+                                        <span>Chuyên khoa : {specialty?.department?.departmentName} </span>
                                     </div>
                                 </div>
         
@@ -59,24 +129,28 @@ const Select_doctor = () =>{
                                         <div className='item'>Giới Tính</div>
                                     </div>
                                     <div className='PAction'>
-                                        <div className='itemm'>
-                                            <div className='list'>
-                                                <img src={doctor2}></img>
-                                                <span style={{color:"#FFD700"}}>THS BS | Vu Thi Mia Uyen</span>
-                                            </div>
-                                            <div className='list'>
-                                                <img src={sex}></img>
-                                                <span>Gioi Tinh: Nu</span>
-                                            </div>
-                                            <div className='list'>
-                                                <img src={Ck2}/>
-                                                <span>Chuyen Khoa: Khoa Tieu Hoa</span>
-                                            </div>
-                                            <div className='list'>
-                                                <img src={Schedule}></img>
-                                                <span>Lich Kham: Thu2,thu 3,thu 4</span>
-                                            </div>
-                                        </div>
+                                        {datafullDoctor && datafullDoctor.length>0 && datafullDoctor.map((item,index)=>{
+                                            return(
+                                                  <div className='itemm' key={index} onClick={() => choiceDoctor(item)}>
+                                                  <div className='list'>
+                                                      <img src={doctor2}></img>
+                                                      <span style={{color:"#FFD700"}}>{item?.position} | {item?.doctorName}</span>
+                                                  </div>
+                                                  <div className='list'>
+                                                      <img src={sex}></img>
+                                                      <span>Gioi Tinh: {item?.sex === true ? "Nam" :"Nữ"}</span>
+                                                  </div>
+                                                  <div className='list'>
+                                                      <img src={Ck2}/>
+                                                      <span>Chuyen Khoa: {specialty?.department?.departmentName}</span>
+                                                  </div>
+                                                  <div className='list'>
+                                                      <img src={Schedule}></img>
+                                                      <span>Lich Kham: Thu2,thu 3,thu 4</span>
+                                                  </div>
+                                              </div>
+                                        )})}
+                                       
                                         
                                     </div>
                             </div>

@@ -17,7 +17,7 @@ export const fertchDepartmentError = () =>{
         type: FERTH_DEPARTMENT_ERROR,
     }
 }
-export const getAllDepartment = () => {
+export const getAllDepartment = (departmentChoose) => {
     return async (dispatch, getState) => {
       dispatch(fertchDepartmentRequest());
       try {

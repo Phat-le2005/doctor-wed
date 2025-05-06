@@ -39,17 +39,17 @@ const Select_pathology = () =>{
           if (res.errCode === 0 && res.data.length > 0) {
             setDataDoctor(res.data[0]);
           } else {
-            toast.error("Không tìm thấy thông tin bác sĩ");
+            toast.error("Không tìm thấy thông tin bác s");
           }
         } catch {
-          toast.error("Lỗi khi tải thông tin bác sĩ");
+          toast.error("Chưa Đăng Nhập");
         } finally {
           setLoading(false);
         }
       };
       fetchDoctor();
     }, [doctorId]);
-   
+
     const navigate = useNavigate()
     const choiceSpecialty = (data) =>{
         setSpecialty(data)
@@ -87,11 +87,11 @@ const Select_pathology = () =>{
                             </div>
                             <div className='item'>
                                 <img src={Doctor}></img>
-                                <span>{dataDoctor.position + " | "+ dataDoctor.doctorName} </span>
+                                <span>{dataDoctor?.position + " | "+ dataDoctor?.doctorName} </span>
                             </div>
                             <div className='item'>
                                 <img src={Ck}></img>
-                                <span>Chuyên khoa : {dataDoctor.Specialties[0].Department.departmentName}  </span>
+                                <span>Chuyên khoa : {dataDoctor?.Specialties[0]?.Department?.departmentName}  </span>
                             </div>
                         </div>
 
@@ -106,7 +106,7 @@ const Select_pathology = () =>{
                                 <input placeholder="Tìm kiếm Bác Sĩ" type="search" className="input"/>
                             </div>
                             <div className='PAction'>
-                                {dataDoctor.Specialties && dataDoctor.Specialties.length >0 && dataDoctor.Specialties.map((item,index)=>
+                                {dataDoctor?.Specialties && dataDoctor?.Specialties.length >0 && dataDoctor?.Specialties.map((item,index)=>
                                                                 <div className='itemm' key={index} onClick={() => choiceSpecialty(item)}>
                                                                  <span>{item.specialtyName}</span>
                                                                  <br></br>

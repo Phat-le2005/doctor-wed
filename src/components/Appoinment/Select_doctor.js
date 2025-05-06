@@ -51,7 +51,7 @@ const Select_doctor = () =>{
             toast.error("Không tìm thấy thông tin bác sĩ");
           }
         } catch {
-          toast.error("Lỗi khi tải thông tin bác sĩ");
+          toast.error("Chưa Đăng Nhập");
         } finally {
           setLoading(false);
         }

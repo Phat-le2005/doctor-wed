@@ -1,0 +1,228 @@
+.BodyKhoa{
+    background-color: #3B4455;
+    width: 100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto  ;
+    .headerPage{    
+        width: 100%;
+        height:90px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #1f2937;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+        .group {
+            display: flex;
+            line-height: 28px;
+            align-items: center;
+            position: relative;
+            margin: 15px;
+            max-width: 90%;
+            // margin-top: 10px;
+            // margin-left: 400px;
+            .input {
+                width: 250px;
+                height: 50px;
+                line-height: 28px;
+                
+                padding: 0 1rem;
+                padding-left: 2.5rem;
+                border: 2px solid transparent;
+                border-radius: 20px;
+                outline: none;
+                border: 1px solid rgb(185, 184, 184);
+                background-color: #3B4455;
+                color: #C9ECFF;
+                transition: .3s ease;
+               }
+               
+               .input::placeholder {
+                color: #9e9ea7;
+               }
+               
+               .input:focus, input:hover {
+                outline: none;
+                border-color: rgba(234,76,137,0.4);
+                background-color: #3B4455;
+                box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+               }
+               
+               .icon {
+                position: absolute;
+                left: 1rem;
+                fill: #9e9ea7;
+                width: 1rem;
+                height: 1rem;
+               }
+               .more{
+                position: absolute;
+                display: flex;
+                color: #9e9ea7;
+                height: 80%;margin-left: 560px;
+                justify-content: center;
+                .icons{
+                    margin-top: 5px;
+                }
+               }
+           }
+    }
+    .container {
+        background: #1f2937;
+        padding: 20px;
+        color: #fff;
+        width: 100%;
+        overflow: auto;
+        height: 645px;
+        margin: auto;
+        font-family: Arial, sans-serif;
+      }
+      
+      .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      
+      .filter-select {
+        padding: 8px;
+        border-radius: 5px;
+        border: none;
+      }
+      
+      .create-btn {
+        padding: 8px 12px;
+        border: none;
+        background-color: #2ecc71;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
+      .department-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .department-card {
+        background: #2b3748;
+        display: flex;
+        padding: 15px;
+        border-radius: 8px;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      
+      .dept-image {
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+      
+      .dept-info {
+        flex: 1;
+      }
+      
+      .symptoms ul {
+        margin: 5px 0 0;
+        padding-left: 20px;
+      }
+      
+      .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+      }
+      
+      .status {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        display: block;
+      }
+      
+      .status.green {
+        background-color: #00ff00;
+      }
+      
+      .status.red {
+        background-color: #ff0000;
+      }
+      
+      .edit-btn, .delete-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+      }
+      
+      .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        gap: 10px;
+      }
+      
+      .page-number {
+        padding: 5px 10px;
+        background: white;
+        color: black;
+        border-radius: 5px;
+      }
+      .modal {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+      }
+      
+      .modal-content {
+        background: #2d3548;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+      }
+      
+      .modal-content input,
+      .modal-content textarea,
+      .modal-content select {
+        width: 100%;
+        padding: 8px;
+        margin: 8px 0;
+        border-radius: 4px;
+        border: none;
+      }
+      
+      .actions {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+      }
+      
+      .save {
+        background-color: #4caf50;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+      }
+      
+      .cancel {
+        background-color: #f44336;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+      }
+}

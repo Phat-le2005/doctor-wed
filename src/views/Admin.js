@@ -9,11 +9,11 @@ const Admin=(props)=>{
     const [isDarkMode, setIsDarkMode] = useState(false);
     return (
             <div className="admin-container">
-                <div className={`admin-sidebar ${isSidebarOpen ? "open" : "close"}`}>
+                <div className={`admin-sidebar`}>
                 <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
             </div>
                  {/* Khi Sidebar đóng, phần nội dung Dashboard sẽ mở rộng ra */}
-            <div className={`admin-content ${isSidebarOpen ? "sidebar-open" : "sidebar-close"}`}>
+            <div className={`admin-content`}>
                 <div className="admin-main">
                     <PerfectScrollbar>
                     <Outlet context={{ isDarkMode, setIsDarkMode }} />

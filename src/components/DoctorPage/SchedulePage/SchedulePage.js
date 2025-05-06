@@ -3,35 +3,51 @@ import { useSelector } from "react-redux";
 import { HiOutlineBars3 } from "react-icons/hi2";
 import { FaRegBell } from "react-icons/fa";
 import { ImBin } from "react-icons/im";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRef } from "react";
+import { getAllSchedule } from "../../../service/scheduleService";
 const SchedulePage = () =>{
     const { doctorInfo, isError } = useSelector((state) => state.doctorInfo);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [startDate, setStartDate] = useState(getStartOfWeek(new Date()));
-  
-  const scheduleData = [
-    { day: 2, date: "23/05/2025", time: "7:00-11:00", room: "PK06" },
-    { day: 3, date: "24/05/2025", time: "7:00-11:00", room: "PK06" },
-    { day: 4, date: "25/05/2025", time: "7:00-11:00", room: "PK06" },
-    { day: 5, date: "26/05/2025", time: "7:00-11:00", room: "PK06" },
-    { day: 5, date: "26/05/2025", time: "12:00-13:00", room: "PK06" },
-    { day: 2, date: "23/05/2025", time: "7:00-11:00", room: "PK06" },
-    { day: 3, date: "24/05/2025", time: "7:00-11:00", room: "PK06" },
-    { day: 4, date: "25/05/2025", time: "7:00-11:00", room: "PK06" },
-    { day: 5, date: "26/05/2025", time: "7:00-11:00", room: "PK06" },
-    { day: 5, date: "26/05/2025", time: "12:00-13:00", room: "PK06" },
-  ];
-
+    const [scheduleData,setScheduleData] = useState([])
+    useEffect(() => {
+      const fetchData = async () => {
+        await ferchDataSchedule();  // Lấy dữ liệu
+        
+      };
+      
+      fetchData();
+    }, [doctorInfo.doctor.doctorId]);
+ const ferchDataSchedule = async () => {
+  const data = await getAllSchedule(doctorInfo.doctor.doctorId);
+  console.log(data)
+  const transformed = transformScheduleData(data);
+  setScheduleData(transformed)
+ 
+};
+console.log(scheduleData)
   const daysOfWeek = ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"];
   const hours = Array.from({ length: 14 }, (_, i) => 7 + i); // 7h - 20h
-
-  const moveWeek = (direction) => {
-    const newDate = new Date(startDate);
-    newDate.setDate(startDate.getDate() + direction * 7);
-    setStartDate(getStartOfWeek(newDate));
+  const transformScheduleData = (rawData) => {
+    const daysOfWeek = ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"];
+    const result = [];
+  
+    rawData.forEach((item) => {
+      const workDays = item.workDay.split(",").map(Number); // ["2","5","6"] => [2,5,6]
+  
+      workDays.forEach((day) => {
+        const dayName = daysOfWeek[day - 2]; // Vì "Thứ 2" là index 0
+        const hour = item.startTime.slice(0, 5); // "07:00:00" => "07:00"
+  
+        if (!result[dayName]) result[dayName] = {};
+        result[dayName][hour] = item;
+      });
+    });
+  
+    return result;
   };
   const CreateModal = ({ onClose }) => {
     const modalRef = useRef();
@@ -44,7 +60,7 @@ const SchedulePage = () =>{
     return (
       <div className="modal-overlay" ref={modalRef}
       onClick={handleOverlayClick}>
-        <div className="modal-content slide-down">
+        <div className="modal-content slide-down" >
           <span>Tạo Ngày Khám</span>
           <hr></hr>
           <input type="date" ></input>
@@ -89,24 +105,24 @@ const SchedulePage = () =>{
             <thead>
               <tr>
                 <th>Thứ</th>
-                <th>Ngày</th>
                 <th>Giờ</th>
                 <th>Phòng</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {scheduleData.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.day}</td>
-                  <td>{item.date}</td>
-                  <td>{item.time}</td>
-                  <td>{item.room}</td>
-                  <td>
-                    <button className="edit-btn">✏️</button>
-                  </td>
-                </tr>
-              ))}
+              { Object.entries(scheduleData).map(([day, slots]) => {
+  return Object.entries(slots).map(([time, item]) => (
+    <tr key={day + time}>
+      <td>{day}</td>
+      <td>{time}</td>
+      <td>{item.Room.toa}{item.Room.floor}{item.Room.roomNumber <10 ? "0"+item.Room.roomNumber : item.Room.roomNumber}</td>
+      <td>
+        <button className="edit-btn">✏️</button>
+      </td>
+    </tr>
+  ));
+})}
             </tbody>
           </table>
         </div>
@@ -142,17 +158,18 @@ const SchedulePage = () =>{
               </tr>
             </thead>
             <tbody>
-              {scheduleData.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.day}</td>
-                  <td>{item.date}</td>
-                  <td>{item.time}</td>
-                  <td>{item.room}</td>
-                  <td>
-                    <button className="edit-btn"><ImBin/></button>
-                  </td>
-                </tr>
-              ))}
+            { Object.entries(scheduleData).map(([day, slots]) => {
+  return Object.entries(slots).map(([time, item]) => (
+    <tr key={day + time}>
+      <td>{day}</td>
+      <td>{time}</td>
+      <td>{item.Room.toa}{item.Room.floor}{item.Room.roomNumber <10 ? "0"+item.Room.roomNumber : item.Room.roomNumber}</td>
+      <td>
+      <button className="edit-btn"><ImBin/></button>
+      </td>
+    </tr>
+  ));
+})}
             </tbody>
           </table>
         </div>
@@ -174,7 +191,7 @@ const SchedulePage = () =>{
                     <FaRegBell></FaRegBell>
                 </div>    
                 <div style={{width:"40px",height:"40px",borderRadius:"50%",cursor:"pointer"}}>
-                    <img style={{width:"100%",height:"100%",borderRadius:"50%"}} src={doctorInfo.user.doctorImage}/>
+                    <img style={{width:"100%",height:"100%",borderRadius:"50%"}} src={doctorInfo.doctor.doctorImage}/>
                  </div>
             </div>
         </div>
@@ -193,32 +210,39 @@ const SchedulePage = () =>{
 
       {/* Bảng lịch */}
       <div className="table-wrapper">
-        <table className="schedule-table">
-          <thead>
-            <tr>
-              <th>
-                <button onClick={() => moveWeek(-1)} className="arrow-btn">&larr;</button>
-              </th>
-              {daysOfWeek.map((day, idx) => (
-                <th key={idx}>{day}</th>
-              ))}
-              <th>
-                <button onClick={() => moveWeek(1)} className="arrow-btn">&rarr;</button>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {hours.map((hour) => (
-              <tr key={hour}>
-                <td className="hour">{hour}:00</td>
-                {daysOfWeek.map((_, idx) => (
-                  <td key={idx} className="cell"></td>
-                ))}
-                <td className="hour">{hour}:00</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <table className="schedule-table">
+  <thead>
+    <tr>
+      <th>Giờ</th>
+      {daysOfWeek.map((day, index) => (
+        <th key={index}>{day}</th>
+      ))}
+    </tr>
+  </thead>
+  <tbody>
+    {hours.map((hour) => {
+      const hourStr = `${hour.toString().padStart(2, "0")}:00`;
+      return (
+        <tr key={hour}>
+          <td>{hourStr}</td>
+          {daysOfWeek.map((day) => (
+            <td key={day}>
+              {
+                scheduleData?.[day]?.[hourStr]
+                  ? (
+                    <div className="schedule-cell">
+                      <div>Phòng: {scheduleData[day][hourStr].Room.toa}{scheduleData[day][hourStr].Room.floor}{scheduleData[day][hourStr].Room.roomNumber < 10 ? "0"+scheduleData[day][hourStr].Room.roomNumber : scheduleData[day][hourStr].Room.roomNumber}</div>
+                    </div>
+                  )
+                  : ""
+              }
+            </td>
+          ))}
+        </tr>
+      );
+    })}
+  </tbody>
+</table>
       </div>
     </div>
     {showCreateModal && (

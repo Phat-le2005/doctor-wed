@@ -1,4 +1,4 @@
-import {  GET_ALL_DOCTOR_ERROR,GET_ALL_DOCTOR_REQUEST,GET_ALL_DOCTOR_SUCCESS,FERTCH_DOCTOR_ERROR,FERTCH_DOCTOR_LOGOUT,FERTCH_DOCTOR_REQUEST,FERTCH_DOCTOR_SUCCESS,UPDATE_DOCTOR_EMAIL, UPDATE_DOCTOR_PHONE,UPDATE_DOCTOR_PASS } from "../action/types";
+import {  GET_ALL_DOCTOR_ERROR,GET_ALL_DOCTOR_REQUEST,GET_ALL_DOCTOR_SUCCESS,FERTCH_DOCTOR_ERROR,FERTCH_DOCTOR_LOGOUT,FERTCH_DOCTOR_REQUEST,FERTCH_DOCTOR_SUCCESS,UPDATE_DOCTOR_EMAIL, UPDATE_DOCTOR_PHONE,UPDATE_DOCTOR_PASS, UPDATE_DOCTOR_ROLE } from "../action/types";
 const initialState = {
     listDoctor: [],
     loading: false,
@@ -80,6 +80,17 @@ const initialStateee = {
               user: {
                 ...state.doctorInfo.user,
                 doctorPass: action.payload,
+              },
+            },
+          };
+          case UPDATE_DOCTOR_ROLE:
+          return {
+            ...state,
+            doctorInfo: {
+              ...state.doctorInfo,
+              user: {
+                ...state.doctorInfo.user,
+                role: action.payload,
               },
             },
           };

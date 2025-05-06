@@ -23,16 +23,22 @@
         flex-grow: 1;
         transition: margin-left 0.3s ease;
 
-        &.sidebar-open {
-            margin-left: 250px;
-        }
+        // &.sidebar-open {
+        //     margin-left: 250px;
+        // }
 
-        &.sidebar-close {
-            margin-left: 80px;
-        }
+        // &.sidebar-close {
+        //     margin-left: 80px;
+        // }
 
         .admin-main {
-            padding: 30px;
+            height: calc(100vh - 90px);
+            overflow: hidden;
+            height: 100%;
+
+            .scroll-container {
+                height: 100%;
+            }
         }
     }
 }

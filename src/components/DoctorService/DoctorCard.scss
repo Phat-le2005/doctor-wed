@@ -52,7 +52,7 @@
         border: none; // Xóa border không cần thiết
         font-size: 14px;
         line-height: auto;
-        font-weight: 500;
+        
         color: #333 !important; // Chỉnh màu đậm hơn
         .Name{
             font-size: 24px;
@@ -68,6 +68,7 @@
             display: flex;
             align-items: center;
             height: 30px;
+            font-weight: 500 !important;
             padding: 5px;
         }
 

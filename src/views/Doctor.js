@@ -8,11 +8,11 @@ const Doctor=(props)=>{
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     return (
             <div className="doctor-container">
-                <div className={`doctor-sidebar ${isSidebarOpen ? "open" : "close"}`}>
+                <div className={`doctor-sidebar `}>
                 <SideBarDoctor isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             </div>
                  {/* Khi Sidebar đóng, phần nội dung Dashboard sẽ mở rộng ra */}
-            <div className={`doctor-content ${isSidebarOpen ? "sidebar-open" : "sidebar-close"}`}>
+            <div className={`doctor-content`}>
                 <div className="doctor-main">
                     <PerfectScrollbar className="scroll-container">
                     <Outlet  />

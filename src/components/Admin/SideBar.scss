@@ -1,0 +1,66 @@
+.bodySideBarAdmin{
+    width: 271px;
+    height: 735px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    // gap: 10px;
+    align-items: center;
+    background-color: #1A202E;
+    .imgSide{
+        width: 150px;
+        height: 150px;
+        border: 3px solid #fff;
+        border-radius: 50%;
+        img{
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+    }
+    .name{
+        span{
+            font-size: 16px;
+            color: #fff;
+        }
+    }
+    .item{
+        width: 250px;
+        height: 52px;
+        display: flex;
+        font-size: 15px;
+        gap: 10px;
+        align-items: center;
+        padding-left: 30px;
+        color: #fff;
+        cursor: pointer;
+        font-weight: 600;
+        &:hover{
+            transition: all 0.5s;
+            padding-top: 10px;
+            padding-left: 20px;
+            color: #35B8FF;
+        }
+    }
+    .item-foot{
+        font-size: 16px;
+        margin-bottom: 20px;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-left: 35px;
+        width: 100%;
+        
+        font-weight: 600;
+        .itemm{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            height: 34px;
+            width: 250px;
+            cursor: pointer;
+        }
+    }
+}

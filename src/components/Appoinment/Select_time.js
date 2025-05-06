@@ -40,6 +40,11 @@ const SelectTime = () =>{
     const [currentMonth, setCurrentMonth] = useState(new Date(2025, 3));
     const userLogin = useSelector((state) => state.userLogin.userLogin);
     const ferchDataHoso = async()=>{
+      if(!userLogin){
+        toast.error("Chưa Đăng Nhập")
+        navigate("/homepage")
+        return;
+      }
       const data =await get_Hoso(userLogin.id)
       if(data.errCode ===1){
         toast.error("Ko nhan dc Data")

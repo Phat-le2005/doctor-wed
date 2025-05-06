@@ -21,12 +21,11 @@ const AppointmentPage = () =>{
     const [showAcceptModal, setShowAcceptModal] = useState(false);
     const [selectedAppointment, setSelectedAppointment] = useState(null);
     const dispatch = useDispatch();
-
     useEffect(() => {
-      if (doctorInfo && doctorInfo.user && doctorInfo.user.doctorId) {
-        dispatch(getAllAppointment(doctorInfo.user.doctorId, 1, 10, status));
+      if (doctorInfo && doctorInfo.doctor && doctorInfo.doctor.doctorId) {
+        dispatch(getAllAppointment(doctorInfo.doctor.doctorId, 1, 10, status));
       }
-    }, [doctorInfo, dispatch, showAcceptModal, status]);
+    }, [ doctorInfo, status, showAcceptModal, dispatch]);
     const AcceptModal = ({ onClose, appointmentId }) => {
       const [selectedStatus, setSelectedStatus] = useState(""); 
       const modalRef = useRef();
@@ -44,7 +43,7 @@ const AppointmentPage = () =>{
         }
       
         try {
-          await AcceptAppointment(appointmentId, selectedStatus);
+          await AcceptAppointment(appointmentId,doctorInfo.doctor.doctorId, selectedStatus);
           toast.success("Cập nhật trạng thái thành công");
           onClose();
         } catch (error) {
@@ -186,7 +185,7 @@ const AppointmentPage = () =>{
                         <FaRegBell></FaRegBell>
                     </div>    
                     <div style={{width:"40px",height:"40px",borderRadius:"50%",cursor:"pointer"}}>
-                        <img style={{width:"100%",height:"100%",borderRadius:"50%"}} src={doctorInfo.user.doctorImage}/>
+                        <img style={{width:"100%",height:"100%",borderRadius:"50%"}} src={doctorInfo.doctor.doctorImage}/>
                     </div>
                 </div>
             </div>
@@ -215,13 +214,13 @@ const AppointmentPage = () =>{
         </thead>
         <tbody>
           {listAppointment.map((item, index) => (
-            <tr key={item.id}>
-              <td>{item.Stt}</td>
-              <td>{item.appointmentId}</td>
-              <td>{item.HoSo.Name}</td>
-              <td>{item.day}</td>
-              <td>{item.Schedule.startTime+" - "+ item.Schedule.endTime}</td>
-              <td>{item.Schedule.Room.toa +"."+ item.Schedule.Room.floor}{item.Schedule.Room.roomNumber.length == 2 ? item.Schedule.Room.roomNumber: "0"+item.Schedule.Room.roomNumber}</td>
+            <tr key={item?.appointmentId}>
+              <td>{item?.Stt}</td>
+              <td>{item?.appointmentId}</td>
+              <td>{item?.HoSo?.Name}</td>
+              <td>{item?.day}</td>
+              <td>{item?.Schedule?.startTime+" - "+ item?.Schedule?.endTime}</td>
+              <td>{item?.Schedule?.Room?.toa +"."+ item?.Schedule?.Room?.floor}{item?.Schedule?.Room?.roomNumber.length == 2 ? item.Schedule.Room.roomNumber: "0"+item.Schedule.Room.roomNumber}</td>
               <td>{item.Schedule.specialty.specialtyName}</td>
               <td>
               {renderStatusDot(item.status)}
@@ -241,11 +240,6 @@ const AppointmentPage = () =>{
           ))}
         </tbody>
       </table>
-      <div className="pagination">
-        <button>{"<"}</button>
-        <span>1</span>
-        <button>{">"}</button>
-      </div>
     </div>
     {showAcceptModal && selectedAppointment && (
   <AcceptModal

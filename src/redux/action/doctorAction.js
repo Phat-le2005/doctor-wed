@@ -1,5 +1,5 @@
 import axios from "axios"
-import { GET_ALL_DOCTOR_ERROR,GET_ALL_DOCTOR_SUCCESS,GET_ALL_DOCTOR_REQUEST,FERTCH_DOCTOR_ERROR,FERTCH_DOCTOR_REQUEST,FERTCH_DOCTOR_LOGOUT,FERTCH_DOCTOR_SUCCESS,UPDATE_DOCTOR_EMAIL, UPDATE_DOCTOR_PHONE,UPDATE_DOCTOR_PASS } from "./types"
+import { GET_ALL_DOCTOR_ERROR,GET_ALL_DOCTOR_SUCCESS,GET_ALL_DOCTOR_REQUEST,FERTCH_DOCTOR_ERROR,FERTCH_DOCTOR_REQUEST,FERTCH_DOCTOR_LOGOUT,FERTCH_DOCTOR_SUCCESS,UPDATE_DOCTOR_EMAIL, UPDATE_DOCTOR_PHONE,UPDATE_DOCTOR_PASS, UPDATE_DOCTOR_ROLE } from "./types"
 import { toast } from "react-toastify"
 export const getAllDoctorSuccess = (ListDoctor)=>{
     return {
@@ -75,6 +75,13 @@ export const updateDoctorEmail = (newEmail) => {
       payload: newPass
     }
   }
+  export const UpdateDoctorRole = (newRole) =>{
+    return {
+      type: UPDATE_DOCTOR_ROLE,
+      payload: newRole
+    }
+  }
+
 export const DoctorLogin = (email,password) => {
     return async (dispatch) => {
       dispatch(fertchDoctorRequest());
@@ -83,7 +90,9 @@ export const DoctorLogin = (email,password) => {
         const res = await axios.post("http://localhost:8082/api/login_doctor",{email,password}, {
           withCredentials: true // 👈 QUAN TRỌNG: gửi cookie
         });
-        if (res?.data?.user) {
+        console.log(res)
+        if (res?.data?.doctor) {
+          
             dispatch(fertchDoctorSuccess(res.data));
             toast.success(res.data.message)
           }else {

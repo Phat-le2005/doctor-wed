@@ -92,7 +92,7 @@ export const getAllUserPaginate=(pageNumber,limitNumber)=>{
     return async (dispatch,getState) =>{
         dispatch(getAllUserPaginateRequest());
          try {
-            let res = await axios.get(`http://localhost:8082/api/get-all-users?page=${pageNumber}&limit=${limitNumber}`)
+            let res = await axios.get(`http://localhost:8082/api/get-all-users?page=${pageNumber}&limit=10`)
             if (res && res.data && res.data.errCode === 0) {
                 dispatch(getAllUserPaginateSuccess(res.data));
                 return res.data; // thêm return để component nhận dữ liệu!

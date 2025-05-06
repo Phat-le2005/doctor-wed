@@ -2,21 +2,23 @@ import "./InforPage.scss"
 import { HiOutlineBars3 } from "react-icons/hi2";
 import { FaRegBell } from "react-icons/fa";
 import { useSelector,useDispatch} from "react-redux";
-import { useState,useRef } from "react";
+import { useState,doctoref, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { UpdateEmailDoctor ,UpdatePhoneDoctor,UpdatePassDoctor} from "../../../service/doctorService";
+
 const InforPage =()=>{
     const { doctorInfo, isError } = useSelector((state) => state.doctorInfo);
     const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
     const [showChangeEmailModal, setShowChangeEmailModal] = useState(false);
     const [showChangePhoneModal, setShowChangePhoneModal] = useState(false);
-    const maskedPassword = "*".repeat(doctorInfo.user.doctorPass.length);
+    const maskedPassword = "*".repeat(doctorInfo?.doctor.doctorPass.length);
     const ChangePasswordModal = ({ onClose }) => {
-       const modalRef = useRef();
+       const modalRef = doctoref();
        const [oldPass, setOldPass] = useState("");
       const [newPass, setNewPass] = useState("");
       const dispatch = useDispatch()
+      
       const [confirmPass, setConfirmPass] = useState("");
           const handleOverlayClick = (e) => {
             // Nếu click vào phần nền (overlay) ngoài modal thì đóng
@@ -29,8 +31,12 @@ const InforPage =()=>{
               toast.error("Mật khẩu mới và xác nhận không khớp");
               return;
             }
-        
-            await UpdatePassDoctor(dispatch, doctorInfo.user.doctorId, oldPass, newPass);
+            if (newPass.length < 6) {
+              toast.error("Mật khẩu cần ít nhất 6 ký tự");
+              return;
+          }
+          
+            await UpdatePassDoctor(dispatch, doctorInfo?.doctor.doctorId, oldPass, newPass);
             onClose(); // Đóng modal sau khi thay đổi thành công (tuỳ chọn)
           };
         
@@ -56,7 +62,7 @@ const InforPage =()=>{
         const [confirmChange, setConfirmChange] = useState(false);
         const [loading, setLoading] = useState(false);
         const dispatch = useDispatch();
-        const modalRef = useRef();
+        const modalRef = doctoref();
         const handleOverlayClick = (e) => {
           // Nếu click vào phần nền (overlay) ngoài modal thì đóng
           if (e.target === modalRef.current) {
@@ -68,9 +74,13 @@ const InforPage =()=>{
             toast.error("Bạn cần xác nhận thay đổi email");
             return;
           }
-      
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+              toast.error("Email không hợp lệ");
+              return;
+          }
           setLoading(true);
-          await UpdateEmailDoctor(dispatch,doctorInfo.user.doctorId, email);
+          await UpdateEmailDoctor(dispatch,doctorInfo?.doctor.doctorId, email);
           setLoading(false);
           onClose(); // đóng modal sau khi hoàn tất
         };
@@ -106,7 +116,7 @@ const InforPage =()=>{
         );
       };
       const ChangePhoneModal = ({ onClose }) => {
-        const modalRef = useRef();
+        const modalRef = doctoref();
         const dispatch = useDispatch()
         const [phone, setPhone] = useState("");
         const [confirmChange, setConfirmChange] = useState(false);
@@ -122,9 +132,14 @@ const InforPage =()=>{
             toast.error("Bạn cần xác nhận thay đổi số điện thoại");
             return;
           }
-      
+          const phoneRegex = /^[0-9]{10,11}$/;
+          if (!phoneRegex.test(phone)) {
+              toast.error("Số điện thoại không hợp lệ");
+              return;
+          }
+
           setLoading(true);
-          await UpdatePhoneDoctor(dispatch, doctorInfo.user.doctorId, phone);
+          await UpdatePhoneDoctor(dispatch, doctorInfo?.doctor.doctorId, phone);
           setLoading(false);
           onClose();
         };
@@ -171,39 +186,39 @@ const InforPage =()=>{
                             <FaRegBell></FaRegBell>
                         </div>    
                         <div style={{width:"40px",height:"40px",borderRadius:"50%",cursor:"pointer"}}>
-                            <img style={{width:"100%",height:"100%",borderRadius:"50%"}} src={doctorInfo.user.doctorImage}/>
+                            <img style={{width:"100%",height:"100%",borderRadius:"50%"}} src={doctorInfo?.doctor?.doctorImage}/>
                         </div>
                     </div>
             </div>
             <div className="Content">
                 <div className="T-content">
                     <div className="ImageInfor">
-                        <img src={doctorInfo.user.doctorImage}></img>
+                        <img src={doctorInfo?.doctor.doctorImage}></img>
                     </div>
                     <div className="K-Infor">
                         <div className="item">
                             <span>ID Doctor:</span>
-                            <span  className="item2">{doctorInfo.user.doctorId}</span>
+                            <span  className="item2">{doctorInfo?.doctor.doctorId}</span>
                             <div></div>
                         </div>
                         <div className="item">
                             <span>Họ Và Tên:</span>
-                            <span className="item2" >{doctorInfo.user.doctorName}</span>
+                            <span className="item2" >{doctorInfo?.doctor.doctorName}</span>
                             <div></div>
                         </div>
                         <div className="item">
                             <span>Chức Vụ:</span>
-                            <span  className="item2">{doctorInfo.user.position}</span>
+                            <span  className="item2">{doctorInfo?.doctor.position}</span>
                             <div></div>
                         </div>
                         <div className="item">
                             <span>Giới Tính:</span>
-                            <span   className="item2">{doctorInfo.user.sex == true ? "Nam" : "Nữ"}</span>
+                            <span   className="item2">{doctorInfo?.doctor.sex == true ? "Nam" : "Nữ"}</span>
                             <div></div>
                         </div>
                         <div className="item">
                             <span>Số Điện Thoại:</span>
-                            <span  className="item2" >{doctorInfo.user.phoneNumber}</span>
+                            <span  className="item2" >{doctorInfo?.doctor.phoneNumber}</span>
                             <div className="item-Action" onClick={() => setShowChangePhoneModal(true)}>
                                 <FaRegEdit></FaRegEdit>
                             </div>
@@ -211,7 +226,7 @@ const InforPage =()=>{
                         </div>
                         <div className="item">
                             <span>Email:</span>
-                            <span  className="item2" >{doctorInfo.user.email}</span>
+                            <span  className="item2" >{doctorInfo?.doctor.email}</span>
                             <div className="item-Action" onClick={() => setShowChangeEmailModal(true)}>
                                 <FaRegEdit></FaRegEdit>
                             </div>
@@ -229,7 +244,7 @@ const InforPage =()=>{
                 <div className="GioiThieu">
                 <span style={{fontSize:"25px",fontWeight:"500"}}>Qua Trinh Dao Tao</span> <br></br>
                     <span style={{fontSize:"18px",fontWeight:"500"}}>
-                    {doctorInfo.user.HocVan.split('\n').map((line, index) => (
+                    {doctorInfo?.doctor.HocVan.split('\n').map((line, index) => (
                       <div key={index}>{line}</div>
                     ))}
                     </span>
@@ -238,7 +253,7 @@ const InforPage =()=>{
                  
                     
                     <span style={{fontSize:"25px",fontWeight:"500"}}>Qua Trinh Cong Tac</span><br></br>
-                    <span style={{fontSize:"18px",fontWeight:"500"}}> {doctorInfo.user.CongTac.split('\n').map((line, index) => (
+                    <span style={{fontSize:"18px",fontWeight:"500"}}> {doctorInfo?.doctor.CongTac.split('\n').map((line, index) => (
                       <div key={index}>{line}</div>
                     ))}</span>
                 </div>

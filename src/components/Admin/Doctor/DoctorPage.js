@@ -12,7 +12,7 @@ const DoctorPage = () =>{
     const [page, setPage] = useState(1);
     const [pageCount, setPageCount] = useState(0);
     const [listDoctor, setListDoctor] = useState([]);
-  
+  console.log(listDoctor)
     const [isCreating, setIsCreating] = useState(false);
     const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -109,7 +109,8 @@ const handleUpdateRoleSuccess = () => {
             setIsCreating(true);  // Show loading state
             if (validateForm()) {
               try {
-                const doctorData = { ...doctor };
+                const doctorData = { ...doctor ,  departmentId: Number(doctor.departmentId)};
+               
                 const res = await createDoctor(doctorData);
                 
                 
@@ -290,7 +291,7 @@ const handleUpdateRoleSuccess = () => {
               </div>
       
               <div className="modal-footer">
-                <button  onClick={handleCreate}>Lưu Thông Tin</button>
+                <button style={{width:"120px",height:"40px"}}  onClick={handleCreate}>Lưu Thông Tin</button>
               </div>
             </div>
           </div>
@@ -381,7 +382,7 @@ const handleDeleteSuccess = () => {
               </p>
       
               <div className="modal-footer">
-                <button onClick={handleUpdateRole}>Cập nhật</button>
+                <button onClick={handleUpdateRole} style={{width:"90px",height:"30px"}}>Cập nhật</button>
               </div>
             </div>
           </div>
@@ -449,7 +450,7 @@ const handleDeleteSuccess = () => {
                     <td>{user.doctorId}</td>
                     <td>{user.doctorName}</td>
                     <td>{user.position}</td>
-                    <td>{user?.Specialties[0]?.Department?.departmentName}</td>
+                    <td>{user?.Department.departmentName}</td>
                     <td>{user.email}</td>
                     <td className="action-buttons">
                     <span

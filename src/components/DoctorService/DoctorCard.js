@@ -23,10 +23,10 @@ const DoctorCard = ({data})=>{
             </div>
             <div className='infor'>
                 <div className='Name'>{data.position + " "+ data.doctorName}</div>
-                <div className='chuyenKhoa'><span>Chuyen Khoa: </span>{data?.Specialties[0]?.Department?.departmentName}</div>
-                <div className='chuyenTri'><span>Chuyen Tri: </span>{listSpecialty[0]?.specialtyName+", ..." }</div>
-                <div className='LichKham'><span>Lich Kham: </span>Thu 2, Thu 3, Thu 4</div>
-                <div className='Gioitinh'><span>Gioi Tinh: </span>{data.sex && data.sex ? "Nam" : "Nữ"}</div>
+                <div className='chuyenKhoa' ><span style={{fontWeight:"700"}}>Chuyen Khoa: </span>{data?.Specialties[0]?.Department?.departmentName}</div>
+                <div className='chuyenTri'><span style={{fontWeight:"700"}}>Chuyen Tri: </span>{listSpecialty[0]?.specialtyName+", ..." }</div>
+                <div className='LichKham'><span style={{fontWeight:"700"}}>Lich Kham: </span>Thu 2, Thu 3, Thu 4</div>
+                <div className='Gioitinh'><span style={{fontWeight:"700"}}>Gioi Tinh: </span>{data.sex && data.sex ? "Nam" : "Nữ"}</div>
             </div>
             <div className='buttonnn' onClick={handleAppointmentClick}>
                 Dang Ky Ngay

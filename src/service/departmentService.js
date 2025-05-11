@@ -1,6 +1,6 @@
 import axios from "axios";
 export const createDepartment = (formData) => {
-    
+    console.log(formData)
 try {
     const data= axios.post("/api/create_department", formData);
     return data.data

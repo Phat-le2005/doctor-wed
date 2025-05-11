@@ -112,16 +112,30 @@ export const logoutUser = () => ({
   // Thực hiện logout, xóa cookie trên client và reset Redux store
   export const logout = () => {
     return async (dispatch) => {
-      // Xóa cookie access_token và refresh_token
-      document.cookie = "access_token=; path=/; max-age=0;"; // Xóa access_token
-      document.cookie = "refresh_token=; path=/; max-age=0;"; // Xóa refresh_token
+      try {
+        // Xóa cookies access_token và refresh_token
+        document.cookie = "access_token=; path=/; max-age=0;"; // Xóa access_token
+        document.cookie = "refresh_token=; path=/; max-age=0;"; // Xóa refresh_token
   
-      // Dispatch action logout thành công
-      dispatch(logoutUser());
-      toast.success("Đăng xuất thành công", {
-        position: "top-right",
-        autoClose: 2000,
-      });
-      return { success: true };
+        // Dispatch action logout thành công
+        dispatch(logoutUser()); // Đảm bảo rằng action này reset lại thông tin người dùng trong store
+  
+        // Hiển thị thông báo thành công
+        toast.success("Đăng xuất thành công", {
+          position: "top-right",
+          autoClose: 2000,
+        });
+  
+        return { success: true }; // Trả về trạng thái thành công (có thể bỏ qua nếu không cần)
+      } catch (error) {
+        // Handle lỗi nếu có
+        console.error("Error during logout:", error);
+        toast.error("Đăng xuất thất bại", {
+          position: "top-right",
+          autoClose: 2000,
+        });
+        return { success: false, error: error.message };
+      }
     };
   };
+  

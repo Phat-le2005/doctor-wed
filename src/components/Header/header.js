@@ -31,9 +31,9 @@ const Header = ()=> {
     }
     const handleLogout = () => {
         dispatch(logout()).then(() => {
-            setTimeout(() => {
+            
               navigate("/homepage");
-            }, 2000); // Chờ toast hiển thị rồi mới redirect
+            
           });
     };
     useEffect(() => {
@@ -106,16 +106,16 @@ const Header = ()=> {
         <nav className="header-list">
             <ul>
                 <li >  
-                        <span style={{top:"1px"} } onClick={()=>navigate("/department")}>Khám Chuyên Khoa</span>
+                        <span style={{top:"1px",fontWeight:"600"} } onClick={()=>navigate("/department")}>Khám Chuyên Khoa</span>
                    
                   </li>
                   <li > 
-                  <span style={{top:"1px"} } onClick={()=>navigate("/doctor_service")}>Khám Theo Bác Sĩ</span>
+                  <span style={{top:"1px",fontWeight:"600"} } onClick={()=>navigate("/doctor_service")}>Khám Theo Bác Sĩ</span>
                   
                         
                   </li>
-                <li className='temp'><span>Khám sức khỏe doanh nghiệp</span></li>
-                <li className='temp'><span>Hướng Dẫn</span></li>
+                <li className='temp' ><span style={{fontWeight:"600"}}>Khám sức khỏe doanh nghiệp</span></li>
+                <li className='temp' ><span style={{fontWeight:"600"}}> Hướng Dẫn</span></li>
             </ul>
         </nav>
     </div>

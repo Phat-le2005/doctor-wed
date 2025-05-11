@@ -3,6 +3,7 @@ import { HiOutlineBars3 } from "react-icons/hi2";
 import { FaRegBell } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { FaRegEdit } from "react-icons/fa";
+import ReactPaginate from "react-paginate";
 import { useState,useEffect } from "react";
 import { useRef } from "react";
 import { getPrescription,getPrescriptionHistory,DeletePrescription } from "../../../service/prescriptionService";
@@ -16,6 +17,9 @@ const HistoryPage = () =>{
     const [showModal, setShowModal] = useState(false);
     const [selectedHistory, setSelectedHistory] = useState(null);
     const [page, setPage] = useState(1);
+    const handlePageClick = (event) => {
+      setPage(event.selected + 1);
+    };
     useEffect(() => {
       const fetchHistory = async () => {
         try {
@@ -253,13 +257,30 @@ const HistoryPage = () =>{
               </tbody>
             </table>
     
-            {total > 1 && (
-  <div className="pagination">
-  <button disabled={page === 1} onClick={() => setPage(page - 1)}>{"<"}</button>
-  <span>{page}</span>
-  <button onClick={() => setPage(page + 1)}>{">"}</button>
-</div>
-)}
+            {/* {total > 1 && (
+            <div className="btn-Paginate">
+              <ReactPaginate
+                nextLabel=">>"
+                previousLabel="<<"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={2}
+                pageCount={total}
+                forcePage={page - 1}
+                containerClassName="pagination"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                activeClassName="active"
+              />
+            </div>
+          )} */}
           </div>
           {showModal && selectedHistory && (
   <MedicalModal onClose={() => setShowModal(false)} data={selectedHistory} />

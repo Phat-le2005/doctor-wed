@@ -107,7 +107,7 @@ const TQPage = () =>{
                   <td>{d.doctorId}</td>
                   <td>{d.doctorName}</td>
                   <td>{d.position}</td>
-                  <td>{d.Specialties[0].Department.departmentName}</td>
+                  <td>{d.Department.departmentName}</td>
                 </tr>
               ))}
             </tbody>

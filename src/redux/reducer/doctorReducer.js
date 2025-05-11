@@ -55,8 +55,8 @@ const initialStateee = {
         ...state,
         doctorInfo: {
           ...state.doctorInfo,
-          user: {
-            ...state.doctorInfo.user,
+          doctor: {
+            ...state.doctorInfo.doctor,
             email: action.payload,
           },
         },
@@ -66,8 +66,8 @@ const initialStateee = {
           ...state,
           doctorInfo: {
             ...state.doctorInfo,
-            user: {
-              ...state.doctorInfo.user,
+            doctor: {
+              ...state.doctorInfo.doctor,
               phoneNumber: action.payload,
             },
           },
@@ -77,8 +77,8 @@ const initialStateee = {
             ...state,
             doctorInfo: {
               ...state.doctorInfo,
-              user: {
-                ...state.doctorInfo.user,
+              doctor: {
+                ...state.doctorInfo.doctor,
                 doctorPass: action.payload,
               },
             },
@@ -88,8 +88,8 @@ const initialStateee = {
             ...state,
             doctorInfo: {
               ...state.doctorInfo,
-              user: {
-                ...state.doctorInfo.user,
+              doctor: {
+                ...state.doctorInfo.doctor,
                 role: action.payload,
               },
             },

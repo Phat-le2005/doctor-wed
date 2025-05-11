@@ -11,9 +11,9 @@ const DepartmentCard = ({data,Ck}) =>{
             <img src={`http://localhost:8082${data.specialtyImage}`} alt={data.specialtyName} ></img>
         </div>
         <div className='infor'>
-            <div className='Name'>{data.specialtyName}</div>
-            <div className='chuyenKhoa'><span>Khoa Khám: </span>{Ck}</div>
-            <div className='chuyenTri'><span>Triệu chứng: </span>{data.specialtyDescription}</div>
+            <div className='Name' style={{fontWeight:"700"}}>{data.specialtyName}</div>
+            <div className='chuyenKhoa'><span style={{fontWeight:"700"}}>Khoa Khám: </span>{Ck}</div>
+            <div className='chuyenTri'><span style={{fontWeight:"700"}}>Triệu chứng: </span>{data.specialtyDescription}</div>
         </div>
         <div onClick={()=> DangKy(data.specialtyId)} className='buttonnn'>
             Dang Ky Ngay

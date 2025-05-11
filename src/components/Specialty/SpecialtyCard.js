@@ -17,7 +17,7 @@ const SpecialtyCard = ({ data }) => {
         <div className='infor'>
           <div className='Name'>{data.departmentName}</div>
           <div className='trieuChung'><span>Triệu chứng:</span></div>
-          <div className='list'><span> {data.departmentDescription.split('\n').map((line, index) => (
+          <div className='list'><span > {data.departmentDescription.split('\n').map((line, index) => (
     <div key={index}>{line}</div>
   ))}</span></div>
         </div>

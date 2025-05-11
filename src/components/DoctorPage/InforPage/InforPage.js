@@ -2,7 +2,7 @@ import "./InforPage.scss"
 import { HiOutlineBars3 } from "react-icons/hi2";
 import { FaRegBell } from "react-icons/fa";
 import { useSelector,useDispatch} from "react-redux";
-import { useState,doctoref, useEffect } from "react";
+import { useState,useRef, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { UpdateEmailDoctor ,UpdatePhoneDoctor,UpdatePassDoctor} from "../../../service/doctorService";
@@ -14,7 +14,7 @@ const InforPage =()=>{
     const [showChangePhoneModal, setShowChangePhoneModal] = useState(false);
     const maskedPassword = "*".repeat(doctorInfo?.doctor.doctorPass.length);
     const ChangePasswordModal = ({ onClose }) => {
-       const modalRef = doctoref();
+       const modalRef = useRef();
        const [oldPass, setOldPass] = useState("");
       const [newPass, setNewPass] = useState("");
       const dispatch = useDispatch()
@@ -62,7 +62,7 @@ const InforPage =()=>{
         const [confirmChange, setConfirmChange] = useState(false);
         const [loading, setLoading] = useState(false);
         const dispatch = useDispatch();
-        const modalRef = doctoref();
+        const modalRef = useRef();
         const handleOverlayClick = (e) => {
           // Nếu click vào phần nền (overlay) ngoài modal thì đóng
           if (e.target === modalRef.current) {
@@ -116,7 +116,7 @@ const InforPage =()=>{
         );
       };
       const ChangePhoneModal = ({ onClose }) => {
-        const modalRef = doctoref();
+        const modalRef = useRef();
         const dispatch = useDispatch()
         const [phone, setPhone] = useState("");
         const [confirmChange, setConfirmChange] = useState(false);

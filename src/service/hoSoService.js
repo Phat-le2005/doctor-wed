@@ -3,7 +3,8 @@ import axios from "axios"; // nếu axios đã được config
 export const createHosoAPI = (formData) => {
   // Ghép ngày/tháng/năm thành 1 chuỗi ngày sinh
   const dob = `${formData.nam}-${formData.thang}-${formData.ngay}`;
-  
+  const sex = formData == "true" ? true : false
+  const Id = parseInt(formData.userId)
   const data = {
     name: formData.name,
     phoneNumber: formData.phone,
@@ -12,9 +13,9 @@ export const createHosoAPI = (formData) => {
     day: dob,
     job: formData.job,
     dantoc: formData.dantoc,
-    sex: "Nam", // hoặc lấy từ dropdown nếu bạn bind giới tính
+    sex: sex, // hoặc lấy từ dropdown nếu bạn bind giới tính
     address: `${formData.address}, ${formData.phuong}, ${formData.quan}, ${formData.tinh}`,
-    userId: formData.userId
+    userId: Id
   };
 
   return axios.post("/api/create_hoso", data);

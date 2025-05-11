@@ -18,7 +18,7 @@ import {
   addMonths,
   subMonths,
   getDay,
-  parseISO,
+  parseISO,startOfDay
 } from "date-fns";
 import { useDoctor } from './doctorContext'
 import "./select_day.scss"
@@ -26,7 +26,7 @@ import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import phongkham from "../../assets/icon/phongKham.png"
 const Select_day = () =>{
-    const [currentMonth, setCurrentMonth] = useState(new Date(2025, 3)); // Tháng 3/2025
+    const [currentMonth, setCurrentMonth] = useState(new Date()); // Tháng 3/2025
     const [selectedDate, setSelectedDate] = useState(null);
     const [allowedWeekdays,setallowedWeekdays]= useState([])
     const { dataDoctor, specialty, setDataSchedule, dataSchedule ,loading,setLoading ,setDay} = useDoctor();
@@ -104,8 +104,7 @@ const Select_day = () =>{
         const today = new Date();
         const isPrevDisabled =
           currentMonth.getFullYear() === today.getFullYear() &&
-          currentMonth.getMonth() <= today.getMonth(); // 👈 nếu đang ở tháng hiện tại hoặc nhỏ hơn
-      
+          currentMonth.getMonth() <= today.getMonth(); // 👈 nếu đang ở tháng hiện tại hoặc nhỏ hơn 
         return (
           <div style={styles.header}>
             <button
@@ -132,7 +131,7 @@ const Select_day = () =>{
                 alignItems: "center",
                 height: "80%",
                 position:"relative",
-                bottom: "15px"
+                // bottom: "15px"
 
               }}
             >
@@ -160,11 +159,11 @@ const Select_day = () =>{
         </div>
       );
     };
-  
     const renderCells = () => {
       const monthStart = startOfMonth(currentMonth);
       const monthEnd = endOfMonth(monthStart);
       const startDate = startOfWeek(monthStart, { weekStartsOn: 0 });
+      const today = new Date();
     
       const rows = [];
       let days = [];
@@ -176,7 +175,7 @@ const Select_day = () =>{
           const isAllowed = allowedWeekdays.includes(getDay(day));
           const isSelected = selectedDate && isSameDay(day, selectedDate);
           const isCurrentMonth = isSameMonth(day, monthStart);
-          const isPastMonth = day < monthStart; // 👈 Vô hiệu hóa ngày tháng trước
+          const isPastDay = day < startOfDay(today); // 👈 Check ngày đã qua
     
           days.push(
             <div
@@ -185,15 +184,15 @@ const Select_day = () =>{
                 ...styles.cell,
                 color: isCurrentMonth ? "#000" : "#ccc",
                 background: isSelected ? "#4dc4ff" : "#fff",
-                fontWeight: isAllowed && !isPastMonth ? "bold" : "normal",
-                cursor: isAllowed && !isPastMonth ? "pointer" : "not-allowed",
-                opacity: isAllowed && !isPastMonth ? 1 : 0.3,
+                fontWeight: isAllowed && !isPastDay ? "bold" : "normal",
+                cursor: isAllowed && !isPastDay ? "pointer" : "not-allowed",
+                opacity: isAllowed && !isPastDay ? 1 : 0.3,
                 borderRadius: 4,
               }}
               onClick={() => {
-                if (isAllowed && !isPastMonth) {
+                if (isAllowed && !isPastDay) {
                   setSelectedDate(cloneDay);
-                  handleChooseDay(cloneDay)
+                  handleChooseDay(cloneDay);
                 }
               }}
             >
@@ -214,6 +213,7 @@ const Select_day = () =>{
     
       return <div>{rows}</div>;
     };
+    
     
     if (!dataSchedule || !dataSchedule.schedules) {
       return <div>Đang tải dữ liệu lịch khám...</div>;

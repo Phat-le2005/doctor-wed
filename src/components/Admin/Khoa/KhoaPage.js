@@ -36,7 +36,7 @@ const [selectedDeleteDepartment, setSelectedDeleteDepartment] = useState(null);
       };
       const handleSaveDepartment = async(newDepartment) => {
         try {
-            const data = await createDepartment(newDepartment.departmentId,newDepartment)
+            const data = await createDepartment(newDepartment)
                 console.log(data)
                 fetchDataDepartment();
         } catch (error) {
@@ -209,8 +209,8 @@ const [selectedDeleteDepartment, setSelectedDeleteDepartment] = useState(null);
               <p>Bạn có chắc chắn muốn xóa khoa "<strong>{departmentName}</strong>" không?</p>
               
               <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
-                <button onClick={onClose}>Hủy</button>
-                <button style={{ backgroundColor: "red", color: "white" }} onClick={onDelete}>
+                <button style={{ width:"50px",height:"35px"}} onClick={onClose}>Hủy</button>
+                <button style={{ backgroundColor: "red", color: "white" ,width:"50px",height:"35px"}} onClick={onDelete}>
                   Xóa
                 </button>
               </div>

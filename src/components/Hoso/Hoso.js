@@ -31,12 +31,19 @@ const Hoso = () =>{
       });
     
       const [errors, setErrors] = useState({});
-    
       const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+          setFormData(prev => ({ ...prev, [name]: value }));
+        
       };
-    
+      const isValidDate = (year, month, day) => {
+        const date = new Date(`${year}-${month}-${day}`);
+        return (
+          date.getFullYear() == year &&
+          date.getMonth() + 1 == month &&
+          date.getDate() == day
+        );
+      };
       const handleSubmit = async (e) => {
         e.preventDefault();
         const newErrors = {};
@@ -54,7 +61,9 @@ const Hoso = () =>{
         if (!formData.quan.trim()) newErrors.quan = 'Quận không được để trống.';
         if (!formData.phuong.trim()) newErrors.phuong = 'Phường không được để trống.';
         if (!formData.address.trim()) newErrors.address = 'Đường không được để trống.';
-      
+        if (!isValidDate(formData.nam, formData.thang, formData.ngay)) {
+          newErrors.day = 'Ngày sinh không hợp lệ.';
+        }
         if (Object.keys(newErrors).length > 0) {
           setErrors(newErrors);
         } else {
@@ -130,10 +139,10 @@ const Hoso = () =>{
 
                     <div className="form-group">
                         <label>Giới tính *</label>
-                        <select name="sex" value={formData.sex}>
-                        <option>Nam</option>
-                        <option>Nữ</option>
-                        </select>
+                        <select name="sex" value={formData.sex} onChange={handleChange}>
+  <option value={true}>Nam</option>
+  <option value={false}>Nữ</option>
+</select>
                     </div>
 
                     <div className="form-group">
